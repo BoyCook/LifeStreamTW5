@@ -1,0 +1,4 @@
+title: Build
+tags: engineering
+
+My CI server is [[jenkins|http://jenkins-ci.org]] deployed [[here|http://craigcook.co.uk/build]]

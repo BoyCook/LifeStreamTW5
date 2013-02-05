@@ -1,0 +1,4 @@
+title: CodeQuality
+tags: engineering
+
+To measure CodeQuality I use [[sonar|http://www.sonarsource.com]] deployed [[here|http://craigcook.co.uk/quality]]

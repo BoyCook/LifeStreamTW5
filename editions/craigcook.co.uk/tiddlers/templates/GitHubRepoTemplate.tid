@@ -1,0 +1,11 @@
+title: $:/templates/GitHubRepoTemplate
+modifier: CraigCook
+tags: template
+
+<div>
+    <pre>
+		<$view field="text.name" format="text"></$view>
+		<$view field="text.description" format="text"></$view>
+        <$view field="text.url" format="text"></$view>
+	</pre>
+</div>

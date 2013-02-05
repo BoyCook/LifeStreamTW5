@@ -1,0 +1,4 @@
+title: GitHubRepos
+tags: GitHubRepo
+
+{{{ [tag[GitHubRepo]] -[[GitHubRepos]] ||$:/templates/GitHubRepoTemplate}}}

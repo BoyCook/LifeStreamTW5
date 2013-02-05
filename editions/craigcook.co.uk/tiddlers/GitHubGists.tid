@@ -1,0 +1,4 @@
+title: GitHubGists
+tags: GitHubGist
+
+{{{ [tag[GitHubGist]] -[[GitHubGists]] ||$:/templates/GitHubGistTemplate}}}

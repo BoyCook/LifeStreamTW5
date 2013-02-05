@@ -1,0 +1,10 @@
+title: $:/templates/BlogTemplate
+modifier: CraigCook
+tags: template
+
+<div>
+    <pre>
+		<$view field="text.title" format="text"></$view>
+		<$view field="text.URL" format="text"></$view>		
+	</pre>
+</div>

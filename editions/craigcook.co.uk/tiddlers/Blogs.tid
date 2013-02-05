@@ -1,0 +1,4 @@
+title: Blogs
+tags: blog
+
+{{{ [tag[blog]] -[[Blogs]] ||$:/templates/BlogTemplate}}}
