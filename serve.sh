@@ -18,7 +18,7 @@ pushd $TW5_EDITION > /dev/null
 
 node ../../node_modules/tiddlywiki/tiddlywiki.js \
 	--verbose \
-	--server 8080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
+	--server 30080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
 	|| exit 1
 
 popd > /dev/null
