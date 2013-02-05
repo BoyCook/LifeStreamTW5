@@ -16,9 +16,9 @@ echo "Using TW5_EDITION as [$TW5_EDITION]"
 
 pushd $TW5_EDITION > /dev/null
 
-node ../../node_modules/tiddlywiki/tiddlywiki.js \
+nohup node ../../node_modules/tiddlywiki/tiddlywiki.js \
 	--verbose \
 	--server 30080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
-	|| exit 1
+	1> ../../webserver.log &
 
 popd > /dev/null
