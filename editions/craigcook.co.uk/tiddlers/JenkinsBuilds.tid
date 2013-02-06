@@ -1,0 +1,4 @@
+title: JenkinsBuilds
+tags: JenkinsBuild
+
+{{{ [tag[JenkinsBuild]] -[[JenkinsBuilds]] ||$:/templates/JenkinsBuildTemplate}}}

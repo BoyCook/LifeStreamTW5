@@ -15,13 +15,13 @@ WordPress blog module
 var fs = require("fs");
 var WordPress = require('wordpress-js-client').WordPress;
 
-var BlogModule = function(){
+var BlogModule = function() {
     this.config = JSON.parse(fs.readFileSync('../../config.json'));
     this.blog = new WordPress(this.config.wordPress);
     this.blogName = 'boycook.wordpress.com';
 };
 
-BlogModule.prototype.getPosts = function() {
+BlogModule.prototype.load = function() {
     //TODO: do this every minute and update client
     this.blog.getPosts(this.blogName, undefined,
         function (code, data) {
@@ -36,7 +36,7 @@ BlogModule.prototype.getPosts = function() {
 };
 
 exports.execute = function() {
-    new BlogModule().getPosts();
+    new BlogModule().load();
 };
 
 })();

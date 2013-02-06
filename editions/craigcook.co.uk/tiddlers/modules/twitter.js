@@ -15,13 +15,13 @@ Twitter module
 var fs = require("fs");
 var Twitter = require('twitter-js-client').Twitter;
 
-var TwitterModule = function(){
+var TwitterModule = function() {
     this.config = JSON.parse(fs.readFileSync('../../config.json'));
     this.twitter = new Twitter(this.config.twitter);
     this.params = { screen_name: 'BoyCook', count: '10'};
 };
 
-TwitterModule.prototype.loadTimeline = function() {
+TwitterModule.prototype.load = function() {
     //TODO: do this every minute and update client
     this.twitter.getUserTimeline(this.params,
         function (code, data) {
@@ -36,7 +36,7 @@ TwitterModule.prototype.loadTimeline = function() {
 };
 
 exports.execute = function() {
-    new TwitterModule().loadTimeline();
+    new TwitterModule().load();
 };
 
 })();

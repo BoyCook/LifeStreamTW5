@@ -1,0 +1,11 @@
+title: $:/templates/JenkinsBuildTemplate
+modifier: CraigCook
+tags: template
+
+<div>
+    <pre>
+        {{##name}}
+        {{##url}}
+        {{##color}}
+	</pre>
+</div>
