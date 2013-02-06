@@ -16,7 +16,7 @@ var fs = require("fs");
 var Jenkins = require('jenkins-js-client').Jenkins;
 
 var JenkinsModule = function() {
-    this.jenkins = new Jenkins({baseUrl: 'http://craigcook.co.uk/build'});
+    this.jenkins = new Jenkins({baseUrl: 'http://192.168.1.2:30020/build'});
     this.userName = 'BoyCook';
 };
 
