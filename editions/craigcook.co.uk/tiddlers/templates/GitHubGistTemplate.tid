@@ -4,8 +4,8 @@ tags: template
 
 <div>
     <pre>
-		<$view field="text.id" format="text"></$view>
-		<$view field="text.description" format="text"></$view>
-		<$view field="text.url" format="text"></$view>
+        {{##id}}
+        {{##description}}
+        {{##url}}
 	</pre>
 </div>

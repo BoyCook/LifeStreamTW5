@@ -16,8 +16,8 @@ var fs = require("fs");
 var Jenkins = require('jenkins-js-client').Jenkins;
 
 var JenkinsModule = function() {
-    this.jenkins = new Jenkins({baseUrl: 'http://192.168.1.2:30020/build'});
-    this.userName = 'BoyCook';
+    this.config = JSON.parse(fs.readFileSync('../../config.json'));
+    this.jenkins = new Jenkins({baseUrl: this.config.jenkins.baseUrl});
 };
 
 JenkinsModule.prototype.load = function() {

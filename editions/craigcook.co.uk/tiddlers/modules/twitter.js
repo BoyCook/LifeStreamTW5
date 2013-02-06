@@ -18,7 +18,7 @@ var Twitter = require('twitter-js-client').Twitter;
 var TwitterModule = function() {
     this.config = JSON.parse(fs.readFileSync('../../config.json'));
     this.twitter = new Twitter(this.config.twitter);
-    this.params = { screen_name: 'BoyCook', count: '10'};
+    this.params = { screen_name: this.config.twitter.accountName, count: '10'};
 };
 
 TwitterModule.prototype.load = function() {

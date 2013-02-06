@@ -18,7 +18,7 @@ var WordPress = require('wordpress-js-client').WordPress;
 var BlogModule = function() {
     this.config = JSON.parse(fs.readFileSync('../../config.json'));
     this.blog = new WordPress(this.config.wordPress);
-    this.blogName = 'boycook.wordpress.com';
+    this.blogName = this.config.wordPress.blogName;
 };
 
 BlogModule.prototype.load = function() {

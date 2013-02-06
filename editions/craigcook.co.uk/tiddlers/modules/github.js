@@ -15,14 +15,15 @@ WordPress blog module
 var fs = require("fs");
 var GitHub = require('github-js-client').GitHub;
 
-var GitHubModule = function(){
+var GitHubModule = function() {
+    this.config = JSON.parse(fs.readFileSync('../../config.json'));
     this.gitHub = new GitHub();
-    this.userName = 'BoyCook';
+    this.accountName = this.config.gitHub.accountName
 };
 
 GitHubModule.prototype.load = function() {
     //TODO: do this every minute and update client
-    this.gitHub.getUsersRepos(this.userName,
+    this.gitHub.getUsersRepos(this.accountName,
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
         },
@@ -32,7 +33,7 @@ GitHubModule.prototype.load = function() {
             }
         }
     );
-    this.gitHub.getUsersGists(this.userName,
+    this.gitHub.getUsersGists(this.accountName,
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
         },

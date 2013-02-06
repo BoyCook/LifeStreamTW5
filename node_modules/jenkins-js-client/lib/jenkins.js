@@ -9,7 +9,7 @@ function Jenkins(config) {
 }
 
 Jenkins.prototype.getCore = function(error, success) {
-    this.get('/', error, success);
+    this.get('', error, success);
 };
 
 Jenkins.prototype.getQueue = function(error, success) {
