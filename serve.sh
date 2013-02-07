@@ -4,7 +4,7 @@
 
 
 if [  -z "$TW5_EDITION" ]; then
-    TW5_EDITION=editions/craigcook.co.uk
+    TW5_EDITION=editions/lifestream
 fi
 
 if [  ! -d "$TW5_EDITION" ]; then
