@@ -2,10 +2,4 @@ title: $:/templates/BlogTemplate
 modifier: CraigCook
 tags: template
 
-<div>
-    <pre>
-        {{##title}}
-        {{##URL}}
-        {{##content}}
-	</pre>
-</div>
+<$blogView/>

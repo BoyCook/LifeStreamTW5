@@ -29,7 +29,8 @@ TwitterModule.prototype.load = function() {
         },
         function (data) {
             for (var cnt=0; cnt<data.length; cnt++) {
-                $tw.wiki.addTiddler({title: "Tweet" + cnt, text: data[cnt].text, tags: "tweet"});
+//                $tw.wiki.addTiddler({title: "Tweet" + data[cnt].id_str, text: JSON.stringify(data[cnt]), tags: "tweet", type: "application/json"});
+                $tw.wiki.addTiddler({title: "Tweet" + data[cnt].id_str, text: data[cnt].text, tags: "tweet"});
             }
         }
     );
