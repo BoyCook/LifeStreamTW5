@@ -21,35 +21,44 @@ var BlogView = function(renderer) {
 BlogView.prototype.generate = function() {
 	// Set the element
     this.tiddlerTitle = this.renderer.getAttribute("tiddler",this.renderer.getContextTiddlerTitle());
-    var tiddler = this.renderer.renderTree.wiki.getTiddler(this.tiddlerTitle);
-    var data = JSON.parse(tiddler.fields.text);
-
+    var data = this.renderer.renderTree.wiki.getTiddlerData(this.tiddlerTitle);
     this.tag = "div";
-    this.attributes ={"class": "item-container"};
-    this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext, [
+    this.attributes = {"class": "item-container"};
+
+    var children = [
         {
             type: "element",
             tag: "$link",
             attributes: {
                 to: {type: "string", value: data.URL}
             },
-            children: [{
+            children: [
+                {
                     type: "element",
                     tag: "h4",
-                    children: [{
-                        type: "text", text: data.title
-                    }]}]
-        }, {
+                    children: [
+                        {
+                            type: "text", text: data.title
+                        }
+                    ]}
+            ]
+        },
+        {
             type: "element",
             tag: "div",
-            children: [{
+            children: [
+                {
                     type: "text", text: "Published: " + data.date
-                }]
-        }, {
+                }
+            ]
+        },
+        {
             type: "raw",
             html: data.content
         }
-    ]);
+    ];
+
+    this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext, children);
 };
 
 exports.blogView = BlogView;

@@ -2,7 +2,4 @@ title: $:/templates/TweetTemplate
 modifier: CraigCook
 tags: template
 
-<div class="item-container">
-    <$view field="text" format="wikified">
-    </$view>
-</div>
+<$tweetView/>
