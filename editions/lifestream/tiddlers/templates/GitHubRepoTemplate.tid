@@ -2,10 +2,4 @@ title: $:/templates/GitHubRepoTemplate
 modifier: CraigCook
 tags: template
 
-<div>
-    <pre>
-        {{##name}}
-        {{##description}}
-        {{##url}}
-	</pre>
-</div>
+<$linkFromTiddler href="url" text="description" />

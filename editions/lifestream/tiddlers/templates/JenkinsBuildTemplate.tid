@@ -2,6 +2,4 @@ title: $:/templates/JenkinsBuildTemplate
 modifier: CraigCook
 tags: template
 
-<div>
-    <$buildView status="red"/>
-</div>
+<$link tofield="##url">{{##name}}</$link>

@@ -2,10 +2,4 @@ title: $:/templates/GitHubGistTemplate
 modifier: CraigCook
 tags: template
 
-<div>
-    <pre>
-        {{##id}}
-        {{##description}}
-        {{##url}}
-	</pre>
-</div>
+<$linkFromTiddler href="url" text="description" />
