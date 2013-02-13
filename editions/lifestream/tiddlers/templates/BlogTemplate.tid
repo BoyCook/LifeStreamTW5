@@ -2,4 +2,10 @@ title: $:/templates/BlogTemplate
 modifier: CraigCook
 tags: template
 
-<$blogView/>
+<div class="item-container">
+    <div class="link-title">
+        <$link to="##URL"><$transclude index="title" parserType="text/raw"/></$link>
+    </div>
+    {{##date}}
+    {{##content}}
+</div>

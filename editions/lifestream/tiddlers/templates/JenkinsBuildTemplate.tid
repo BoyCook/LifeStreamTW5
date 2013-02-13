@@ -2,4 +2,6 @@ title: $:/templates/JenkinsBuildTemplate
 modifier: CraigCook
 tags: template
 
-<$link tofield="##url">{{##name}}</$link>
+<div class="link-title">
+    <$link to="##url"><$transclude index="name" parserType="text/raw"/></$link>
+</div>

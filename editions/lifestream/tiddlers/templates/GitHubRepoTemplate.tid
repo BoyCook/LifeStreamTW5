@@ -2,4 +2,6 @@ title: $:/templates/GitHubRepoTemplate
 modifier: CraigCook
 tags: template
 
-<$linkFromTiddler href="url" text="description" />
+<div class="link-title">
+    <$link to="##html_url"><$transclude index="description" parserType="text/raw"/></$link>
+</div>

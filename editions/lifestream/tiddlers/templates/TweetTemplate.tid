@@ -2,4 +2,9 @@ title: $:/templates/TweetTemplate
 modifier: CraigCook
 tags: template
 
-<$tweetView/>
+<div class="item-container">
+    <div class="tweet-text">
+        {{##text}}
+    </div>
+    {{##created_at}}
+</div>
