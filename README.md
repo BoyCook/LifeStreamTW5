@@ -9,7 +9,7 @@ A TiddlyWiki5 edition containing integrations with:
 
 ## TODO:
 
-* Show how long ago rather than timestamps
+* <s>Show how long ago rather than timestamps</s>
 * Automatically sync new items from server
 * LinkedIn integration
 * Show latest from all modules
