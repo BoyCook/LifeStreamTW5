@@ -1,7 +1,7 @@
 /*\
 title: $:/core/modules/github.js
 type: application/javascript
-module-type: server
+module-type: lifestream
 
 WordPress blog module
 
@@ -12,17 +12,13 @@ WordPress blog module
 /*global $tw: false */
 "use strict";
 
-var fs = require("fs");
-var GitHub = require('github-js-client').GitHub;
-
-var GitHubModule = function() {
-    this.config = JSON.parse(fs.readFileSync('../../config.json'));
+var GitHubModule = function(config) {
+    var GitHub = require('github-js-client').GitHub;
     this.gitHub = new GitHub();
-    this.accountName = this.config.gitHub.accountName
+    this.accountName = config.accountName
 };
 
 GitHubModule.prototype.load = function() {
-    //TODO: do this every minute and update client
     this.gitHub.getUsersRepos(this.accountName,
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
@@ -45,8 +41,13 @@ GitHubModule.prototype.load = function() {
     );
 };
 
-exports.execute = function() {
-    new GitHubModule().load();
+exports.info = {
+    name: "github",
+    synchronous: true
+};
+
+exports.execute = function(config) {
+    new GitHubModule(config).load();
 };
 
 })();

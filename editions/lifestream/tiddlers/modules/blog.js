@@ -1,7 +1,7 @@
 /*\
 title: $:/core/modules/blog.js
 type: application/javascript
-module-type: server
+module-type: lifestream
 
 WordPress blog module
 
@@ -12,17 +12,13 @@ WordPress blog module
 /*global $tw: false */
 "use strict";
 
-var fs = require("fs");
-var WordPress = require('wordpress-js-client').WordPress;
-
-var BlogModule = function() {
-    this.config = JSON.parse(fs.readFileSync('../../config.json'));
-    this.blog = new WordPress(this.config.wordPress);
-    this.blogName = this.config.wordPress.blogName;
+var BlogModule = function(config) {
+    var WordPress = require('wordpress-js-client').WordPress;
+    this.blog = new WordPress(config);
+    this.blogName = config.blogName;
 };
 
 BlogModule.prototype.load = function() {
-    //TODO: do this every minute and update client
     this.blog.getPosts(this.blogName, undefined,
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
@@ -35,8 +31,13 @@ BlogModule.prototype.load = function() {
     );
 };
 
-exports.execute = function() {
-    new BlogModule().load();
+exports.info = {
+    name: "wordpress",
+    synchronous: true
+};
+
+exports.execute = function(config) {
+    new BlogModule(config).load();
 };
 
 })();

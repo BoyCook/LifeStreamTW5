@@ -1,7 +1,7 @@
 /*\
 title: $:/core/modules/twitter.js
 type: application/javascript
-module-type: server
+module-type: lifestream
 
 Twitter module
 
@@ -12,17 +12,13 @@ Twitter module
 /*global $tw: false */
 "use strict";
 
-var fs = require("fs");
-var Twitter = require('twitter-js-client').Twitter;
-
-var TwitterModule = function() {
-    this.config = JSON.parse(fs.readFileSync('../../config.json'));
-    this.twitter = new Twitter(this.config.twitter);
-    this.params = { screen_name: this.config.twitter.accountName, count: '10'};
+var TwitterModule = function(config) {
+    var Twitter = require('twitter-js-client').Twitter;
+    this.twitter = new Twitter(config);
+    this.params = { screen_name: config.accountName, count: '10'};
 };
 
 TwitterModule.prototype.load = function() {
-    //TODO: do this every minute and update client
     this.twitter.getUserTimeline(this.params,
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
@@ -36,8 +32,13 @@ TwitterModule.prototype.load = function() {
     );
 };
 
-exports.execute = function() {
-    new TwitterModule().load();
+exports.info = {
+    name: "twitter",
+    synchronous: true
+};
+
+exports.execute = function(config) {
+    new TwitterModule(config).load();
 };
 
 })();

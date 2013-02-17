@@ -19,11 +19,13 @@ if [ $# -eq 1 ]
 then
     nohup node ../../node_modules/tiddlywiki/tiddlywiki.js \
         --verbose \
+        --lifestream ../../config.json twitter wordpress github jenkins \
         --server 30080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
         1> ../../webserver.log &
 else
     node ../../node_modules/tiddlywiki/tiddlywiki.js \
         --verbose \
+        --lifestream ../../config.json twitter wordpress github jenkins \
         --server 30080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
         || exit 1
 fi

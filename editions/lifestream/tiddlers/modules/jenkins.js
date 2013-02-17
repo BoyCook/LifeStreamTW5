@@ -1,7 +1,7 @@
 /*\
 title: $:/core/modules/jenkins.js
 type: application/javascript
-module-type: server
+module-type: lifestream
 
 Jenkins module
 
@@ -12,16 +12,12 @@ Jenkins module
 /*global $tw: false */
 "use strict";
 
-var fs = require("fs");
-var Jenkins = require('jenkins-js-client').Jenkins;
-
-var JenkinsModule = function() {
-    this.config = JSON.parse(fs.readFileSync('../../config.json'));
-    this.jenkins = new Jenkins({baseUrl: this.config.jenkins.baseUrl});
+var JenkinsModule = function(config) {
+    var Jenkins = require('jenkins-js-client').Jenkins;
+    this.jenkins = new Jenkins({baseUrl: config.baseUrl});
 };
 
 JenkinsModule.prototype.load = function() {
-    //TODO: do this every minute and update client
     this.jenkins.getCore(
         function (code, data) {
             console.log('ERROR [%s] - [%s]', code, data);
@@ -34,8 +30,13 @@ JenkinsModule.prototype.load = function() {
     );
 };
 
-exports.execute = function() {
-    new JenkinsModule().load();
+exports.info = {
+    name: "jenkins",
+    synchronous: true
+};
+
+exports.execute = function(config) {
+    new JenkinsModule(config).load();
 };
 
 })();
