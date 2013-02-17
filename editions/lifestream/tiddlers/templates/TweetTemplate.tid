@@ -6,5 +6,5 @@ tags: template
     <div class="tweet-text">
         {{##text}}
     </div>
-    {{##created_at}}
+    <$dateDiff date="##created_at"/>
 </div>
