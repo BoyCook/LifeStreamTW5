@@ -6,6 +6,6 @@ tags: template
     <div class="link-title">
         <$link to="##URL"><$transclude index="title" parserType="text/raw"/></$link>
     </div>
-    {{##date}}
+    <$dateDiff date="##date"/>
     {{##content}}
 </div>
