@@ -7,6 +7,3 @@
 [submodule "node_modules/wordpress-js-client"]
 	path = node_modules/wordpress-js-client
 	url = git://github.com/BoyCook/WordPressJSClient.git
-[submodule "node_modules/github-js-client"]
-	path = node_modules/github-js-client
-	url = git://github.com/BoyCook/GitHubJSClient.git
