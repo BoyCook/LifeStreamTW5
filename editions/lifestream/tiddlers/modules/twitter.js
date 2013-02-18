@@ -20,8 +20,8 @@ var TwitterModule = function(config) {
 
 TwitterModule.prototype.load = function() {
     this.twitter.getUserTimeline(this.params,
-        function (code, data) {
-            console.log('ERROR [%s] - [%s]', code, data);
+        function (err, response, body) {
+            console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
         },
         function (data) {
             for (var cnt=0; cnt<data.length; cnt++) {

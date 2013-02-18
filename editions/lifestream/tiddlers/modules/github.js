@@ -20,8 +20,8 @@ var GitHubModule = function(config) {
 
 GitHubModule.prototype.load = function() {
     this.gitHub.getUsersRepos(this.accountName,
-        function (code, data) {
-            console.log('ERROR [%s] - [%s]', code, data);
+        function (err, response, body) {
+            console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
         },
         function (data) {
             for (var cnt=0; cnt<data.length; cnt++) {
