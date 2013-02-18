@@ -1,0 +1,37 @@
+title: LifestreamConfig
+tags: lifestream config setup
+type: application/json
+
+{
+    "twitter": {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "accessToken": "",
+        "accessTokenSecret": "",
+        "callBackUrl": "",
+        "accountName": "",
+        "reloadPeriod": "30000"
+    },
+    "wordpress": {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "accessToken": "",
+        "accessTokenSecret": "",
+        "callBackUrl": "",
+        "blogName": "",
+        "reloadPeriod": "120000"
+    },
+    "github": {
+        "consumerKey": "",
+        "consumerSecret": "",
+        "accessToken": "",
+        "accessTokenSecret": "",
+        "callBackUrl": "",
+        "accountName": "",
+        "reloadPeriod": "120000"
+    },
+    "jenkins": {
+        "baseUrl": "",
+        "reloadPeriod": "30000"
+    }
+}

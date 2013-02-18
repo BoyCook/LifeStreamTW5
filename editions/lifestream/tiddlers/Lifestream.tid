@@ -1,0 +1,15 @@
+title: Lifestream
+tags: lifestream
+
+Lifestream is a [[TiddlyWiki5|http://five.tiddlywiki.com]] edition created by [[Craig Cook|CraigCook]]
+It integrates with popular online social systems and provides a single platform for viewing them. Current integrations are:
+
+* [[Twitter|http://twitter.com]]
+* [[WordPress|http://wordpress.com]]
+* [[GitHub|http://github.com]]
+* [[Jenkins|http://jenkins-ci.org]]
+
+It is an ideal choice to use as a personal homepage, and with it's [[GitHub|http://github.com]]/[[Jenkins|http://jenkins-ci.org]]
+integrations it's even better if you're a software developer. See http://craigcook.co.uk for an example.
+
+For details on how to get going see [[LifestreamSetup]]
