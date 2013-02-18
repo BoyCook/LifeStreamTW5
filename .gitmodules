@@ -1,3 +1,15 @@
 [submodule "node_modules/tiddlywiki"]
 	path = node_modules/tiddlywiki
 	url = git://github.com/BoyCook/TiddlyWiki5.git
+[submodule "node_modules/twitter-js-client"]
+	path = node_modules/twitter-js-client
+	url = git://github.com/BoyCook/TwitterJSClient.git
+[submodule "node_modules/wordpress-js-client"]
+	path = node_modules/wordpress-js-client
+	url = git://github.com/BoyCook/WordPressJSClient.git
+[submodule "node_modules/github-js-client"]
+	path = node_modules/github-js-client
+	url = git://github.com/BoyCook/GitHubJSClient.git
+[submodule "node_modules/jenkins-js-client"]
+	path = node_modules/jenkins-js-client
+	url = git://github.com/BoyCook/JenkinsJSClient.git
