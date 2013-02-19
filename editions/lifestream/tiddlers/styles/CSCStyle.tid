@@ -8,10 +8,6 @@ type: text/css
     margin: 0 0 10px;
     font-size: 13px;
     line-height: 20px;
-    word-break: break-all;
-    word-wrap: break-word;
-    white-space: pre;
-    white-space: pre-wrap;
     background-color: #ffffff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.15);
@@ -20,7 +16,7 @@ type: text/css
     border-radius: 4px;
 }
 
-.tweet-text {
+.box-text {
     font-size: 16px;
 }
 

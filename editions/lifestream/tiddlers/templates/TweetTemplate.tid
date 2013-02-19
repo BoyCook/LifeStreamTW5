@@ -3,8 +3,8 @@ modifier: CraigCook
 tags: template
 
 <div class="item-container">
-    <div class="tweet-text">
+    <div class="box-text">
         {{##text}}
     </div>
-    <$dateDiff date="##created_at"/>
+    <a href=http://twitter.com/{{##user.screen_name}}/status/{{##id_str}} target="_blank"><$dateDiff date="##created_at"/></a>
 </div>

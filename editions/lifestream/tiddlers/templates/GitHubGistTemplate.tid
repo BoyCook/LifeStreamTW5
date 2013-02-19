@@ -3,5 +3,5 @@ modifier: CraigCook
 tags: template
 
 <div class="link-title">
-    <$link to="##html_url"><$transclude index="description" parserType="text/raw"/></$link>
+    <a href={{##html_url}} target="_blank"><$transclude index="description" parserType="text/raw"/></a>
 </div>

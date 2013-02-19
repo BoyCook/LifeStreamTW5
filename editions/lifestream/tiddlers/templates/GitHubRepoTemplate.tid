@@ -2,6 +2,14 @@ title: $:/templates/GitHubRepoTemplate
 modifier: CraigCook
 tags: template
 
-<div class="link-title">
-    <$link to="##html_url"><$transclude index="description" parserType="text/raw"/></$link>
+<div class="link-title item-container">
+    <div class="">
+        <a href={{##html_url}} target="_blank"><$transclude index="name" parserType="text/raw"/></a>
+        @@font-size:10px;
+        <$transclude index="language" parserType="text/raw"/>
+        @@
+    </div>
+    <div>
+        <$transclude index="description" parserType="text/raw"/>
+    </div>
 </div>

@@ -4,7 +4,7 @@ tags: template
 
 <div class="item-container">
     <div class="link-title">
-        <$link to="##URL"><$transclude index="title" parserType="text/raw"/></$link>
+        <a href={{##URL}} target="_blank"><$transclude index="title" parserType="text/raw"/></a>
     </div>
     <$dateDiff date="##date"/>
     {{##content}}

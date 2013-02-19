@@ -7,5 +7,8 @@
 #git submodule add git://github.com/BoyCook/GitHubJSClient.git node_modules/github-js-client
 #git submodule add git://github.com/BoyCook/JenkinsJSClient.git node_modules/jenkins-js-client
 
+#git clone git://github.com/BoyCook/GitHubJSClient.git node_modules/github-js-client
+#git clone git://github.com/BoyCook/JenkinsJSClient.git node_modules/jenkins-js-client
+
 #git clone --recursive git://github.com/BoyCook/CraigCook.git
 #git submodule foreach git pull origin master
