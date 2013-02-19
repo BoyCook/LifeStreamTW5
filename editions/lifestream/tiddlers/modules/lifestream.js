@@ -30,7 +30,7 @@ Command.prototype.execute = function() {
     //Execute any lifestream modules that are passed in as params
     $tw.modules.forEachModuleOfType("lifestream", function(title, module) {
         var name = module.info.name;
-        if ($tw.utils.contains(toLoad, name)) {
+        if (toLoad.indexOf(name) > -1) {
             console.log('Loading lifestream module [%s] - [%s]', name, title);
             context.loadModule(module, config[name])
         }
