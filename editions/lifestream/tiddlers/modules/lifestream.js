@@ -40,7 +40,7 @@ Command.prototype.execute = function() {
 Command.prototype.loadModule = function(module, config) {
     module.execute(config);
     //Reload every X ms
-    $tw.setInterval(function(){
+    $tw.setInterval(function() {
         module.execute(config);
     }, config.reloadPeriod ? config.reloadPeriod : 30000);
 };
