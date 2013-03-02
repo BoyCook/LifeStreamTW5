@@ -3,7 +3,7 @@ title: $:/tiddlywiki/plugins/socketserversyncer.js
 type: application/javascript
 module-type: server-syncer
 
-Socket.IO server syncer plugin
+Socket.IO server syncer. This acts when the wiki state changes i.e. add/delete tiddler
 
 \*/
 (function(){
@@ -21,7 +21,7 @@ SocketServerSyncer.prototype.addTiddler = function(tiddler) {
     }
 };
 
-SocketServerSyncer.prototype.removeTiddler = function(tiddler) {
+SocketServerSyncer.prototype.deleteTiddler = function(tiddler) {
     if ($tw.server) {
         $tw.server.io.sockets.emit('tiddler-remove', tiddler);
     }
