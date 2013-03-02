@@ -12,6 +12,7 @@ Socket.IO server syncer plugin
 "use strict";
 
 var SocketServerSyncer = function() {
+    //TODO: don't emit back to sender
 };
 
 SocketServerSyncer.prototype.addTiddler = function(tiddler) {
