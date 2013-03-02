@@ -171,7 +171,10 @@ exports.addTiddler = function(tiddler) {
 	this.touchTiddler(title);
 
     //TODO: Speak to Jeremy - I can see that there is a syncer mechanism but not sure if it gets invoked
-    if(!$tw.browser) {
+    if($tw.browser) {
+        //TODO: you get the idea
+        //this.invokeClientSyncers('addTiddler', tiddler);
+    } else {
         this.invokeServerSyncers('addTiddler', tiddler);
     }
 };
