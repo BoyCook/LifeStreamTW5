@@ -40,7 +40,7 @@ FileSystemSyncer.prototype.addTiddler = function(tiddler) {
     }
 };
 
-FileSystemSyncer.prototype.removeTiddler = function(tiddler) {
+FileSystemSyncer.prototype.deleteTiddler = function(tiddler) {
     var fileName = this.fileName(tiddler);
     if(this.fs.existsSync(fileName)) {
         this.fs.unlink(fileName, function (err) {
