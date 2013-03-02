@@ -74,6 +74,7 @@ Command.prototype.execute = function() {
     app.listen(port);
 
     $tw.server = {app: app, io: io};
+    $tw.wiki.initServerSyncers();
 
 	if(this.commander.verbose) {
 		console.log("Serving on port " + port);
