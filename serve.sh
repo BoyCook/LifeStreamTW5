@@ -24,6 +24,8 @@ fi
 echo "Using TW5_EDITION as [$TW5_EDITION]"
 echo "Using TW5_LOC as [$TW5_LOC]"
 
+rm -r editions/lifestream/tiddlers/generated
+
 if [ $# -eq 1 ]
 then
     nohup node $TW5_LOC \
