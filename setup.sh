@@ -16,5 +16,6 @@ echo "Using config at [$CSC_CONF]"
 cp $CSC_CONF/config.json ./
 cp -r $CSC_CONF/testing ./editions/lifestream/tiddlers
 
+#TODO: fix submodule issue
 git clone git://github.com/BoyCook/GitHubJSClient.git ./node_modules/github-js-client
 git clone git://github.com/BoyCook/JenkinsJSClient.git ./node_modules/jenkins-js-client
