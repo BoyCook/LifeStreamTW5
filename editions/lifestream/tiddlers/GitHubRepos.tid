@@ -1,4 +1,4 @@
 title: GitHubRepos
-tags: GitHubRepo
+tags: GitHubRepos
 
-{{{ [tag[GitHubRepo]] -[[GitHubRepos]] ||$:/templates/GitHubRepoTemplate}}}
+{{{ [tag[GitHubRepo]sort-date[##updated_at]] -[[GitHubRepos]] ||$:/templates/GitHubRepoTemplate}}}
