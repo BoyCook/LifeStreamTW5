@@ -18,24 +18,36 @@ var GitHubModule = function(config) {
     this.accountName = config.accountName
 };
 
+GitHubModule.prototype.error = function(err, response, body) {
+    console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
+};
+
+
 GitHubModule.prototype.load = function() {
+    var context = this;
     this.gitHub.getUsersRepos(this.accountName,
-        function (err, response, body) {
-            console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
-        },
-        function (data) {
-            for (var cnt=0; cnt<data.length; cnt++) {
-                $tw.wiki.addTiddler({title: "GitHubRepo" + data[cnt].name, text: JSON.stringify(data[cnt]), tags: "GitHubRepo", type: "application/json"});
+        context.error,
+        function (body) {
+            var data = $tw.wiki.parseJSON(body);
+            if (data == undefined) {
+                console.log('WARNING - no GitHub data, unable to process');
+            } else {
+                for (var cnt=0; cnt<data.length; cnt++) {
+                    $tw.wiki.addTiddler({title: "GitHubRepo" + data[cnt].name, text: JSON.stringify(data[cnt]), tags: "GitHubRepo", type: "application/json"});
+                }
             }
         }
     );
     this.gitHub.getUsersGists(this.accountName,
-        function (code, data) {
-            console.log('ERROR [%s] - [%s]', code, data);
-        },
-        function (data) {
-            for (var cnt=0; cnt<data.length; cnt++) {
-                $tw.wiki.addTiddler({title: "GitHubGist" + data[cnt].id, text: JSON.stringify(data[cnt]), tags: "GitHubGist", type: "application/json"});
+        context.error,
+        function (body) {
+            var data = $tw.wiki.parseJSON(body);
+            if (data == undefined) {
+                console.log('WARNING - no GitHub data, unable to process');
+            } else {
+                for (var cnt=0; cnt<data.length; cnt++) {
+                    $tw.wiki.addTiddler({title: "GitHubGist" + data[cnt].id, text: JSON.stringify(data[cnt]), tags: "GitHubGist", type: "application/json"});
+                }
             }
         }
     );

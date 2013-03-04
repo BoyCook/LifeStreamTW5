@@ -22,9 +22,14 @@ JenkinsModule.prototype.load = function() {
         function (err, response, body) {
             console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
         },
-        function (data) {
-            for (var cnt=0; cnt<data.jobs.length; cnt++) {
-                $tw.wiki.addTiddler({title: "JenkinsBuild" + data.jobs[cnt].name, text: JSON.stringify(data.jobs[cnt]), tags: "JenkinsBuild", type: "application/json"});
+        function (body) {
+            var data = $tw.wiki.parseJSON(body);
+            if (data == undefined) {
+                console.log('WARNING - no Jenkins data, unable to process');
+            } else {
+                for (var cnt=0; cnt<data.jobs.length; cnt++) {
+                    $tw.wiki.addTiddler({title: "JenkinsBuild" + data.jobs[cnt].name, text: JSON.stringify(data.jobs[cnt]), tags: "JenkinsBuild", type: "application/json"});
+                }
             }
         }
     );

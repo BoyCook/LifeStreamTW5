@@ -23,9 +23,14 @@ BlogModule.prototype.load = function() {
         function (err, response, body) {
             console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
         },
-        function (data) {
-            for (var cnt=0; cnt<data.posts.length; cnt++) {
-                $tw.wiki.addTiddler({title: "Blog" + data.posts[cnt].ID, text: JSON.stringify(data.posts[cnt]), tags: "blog", type: "application/json"});
+        function (body) {
+            var data = $tw.wiki.parseJSON(body);
+            if (data == undefined) {
+                console.log('WARNING - no WordPress data, unable to process');
+            } else {
+                for (var cnt=0; cnt<data.posts.length; cnt++) {
+                    $tw.wiki.addTiddler({title: "Blog" + data.posts[cnt].ID, text: JSON.stringify(data.posts[cnt]), tags: "blog", type: "application/json"});
+                }
             }
         }
     );

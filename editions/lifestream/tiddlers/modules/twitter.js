@@ -23,10 +23,14 @@ TwitterModule.prototype.load = function() {
         function (err, response, body) {
             console.log('ERROR [%s] - [%s] - [%s]', err, response, body);
         },
-        function (data) {
-            for (var cnt=0; cnt<data.length; cnt++) {
-                $tw.wiki.addTiddler({title: "Tweet" + data[cnt].id_str, text: JSON.stringify(data[cnt]), tags: "tweet", type: "application/json"});
-//                $tw.wiki.addTiddler({title: "Tweet" + data[cnt].id_str, text: data[cnt].text, tags: "tweet"});
+        function (body) {
+            var data = $tw.wiki.parseJSON(body);
+            if (data == undefined) {
+                console.log('WARNING - no tweet data, unable to process');
+            } else {
+                for (var cnt=0; cnt<data.length; cnt++) {
+                    $tw.wiki.addTiddler({title: "Tweet" + data[cnt].id_str, text: JSON.stringify(data[cnt]), tags: "tweet", type: "application/json"});
+                }
             }
         }
     );
