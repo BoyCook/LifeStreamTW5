@@ -16,7 +16,6 @@ var SocketClientSyncer = function() {
     //TODO: SocketServerSyncer and SocketClientSyncer are very similar - try to rationalise
     this.socket = io.connect('http://localhost');
     this.socket.on('tiddler-add', function (tiddler) {
-        console.log('Received event in client [%s]', tiddler.fields.title);
         tiddler.fields.isSynced = true; // Slight hack - don't want to have infinite recursion
         $tw.wiki.addTiddler(tiddler.fields);
     });

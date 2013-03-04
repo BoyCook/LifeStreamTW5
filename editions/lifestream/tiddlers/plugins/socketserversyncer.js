@@ -15,7 +15,6 @@ var SocketServerSyncer = function() {
     //TODO: don't emit back to sender
     $tw.server.io.sockets.on('connection', function (socket) {
         socket.on('tiddler-add', function (tiddler) {
-            console.log('Received event on server [%s]', tiddler.fields.title);
             tiddler.fields.isSynced = true;  // Slight hack - don't want to have infinite recursion
             $tw.wiki.addTiddler(tiddler.fields);
         });
