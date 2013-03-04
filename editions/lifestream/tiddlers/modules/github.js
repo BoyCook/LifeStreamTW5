@@ -27,8 +27,7 @@ GitHubModule.prototype.load = function() {
     var context = this;
     this.gitHub.getUsersRepos(this.accountName,
         context.error,
-        function (body) {
-            var data = $tw.wiki.parseJSON(body);
+        function (data) {
             if (data == undefined) {
                 console.log('WARNING - no GitHub data, unable to process');
             } else {
@@ -40,8 +39,7 @@ GitHubModule.prototype.load = function() {
     );
     this.gitHub.getUsersGists(this.accountName,
         context.error,
-        function (body) {
-            var data = $tw.wiki.parseJSON(body);
+        function (data) {
             if (data == undefined) {
                 console.log('WARNING - no GitHub data, unable to process');
             } else {
