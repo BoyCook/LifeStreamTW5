@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/datediff.js
+title: $:/core/modules/widget/dateago.js
 type: application/javascript
 module-type: widget
 
@@ -12,7 +12,7 @@ Implements the version widget.
 /*global $tw: false */
 "use strict";
 
-var DateDiff = function (d1, d2) {
+var DateAgo = function (d1, d2) {
     this.units = {
         second: 1000,
         minute: 60000,
@@ -28,7 +28,7 @@ var DateDiff = function (d1, d2) {
     return this;
 };
 
-DateDiff.prototype.diff = function() {
+DateAgo.prototype.get = function() {
     var diff = (this.d1 - this.d2);
 
     if (diff < 45000) { // < 35 seconds
@@ -49,7 +49,7 @@ DateDiff.prototype.diff = function() {
     return diff + " ms ago"
 };
 
-DateDiff.prototype.calculate = function(unitName, unit, lowerUnitName, lowerUnit, diff) {
+DateAgo.prototype.calculate = function(unitName, unit, lowerUnitName, lowerUnit, diff) {
     var upperDiff = Math.floor(diff / unit);
     var remainder = Math.round(diff % unit);
     var lowerDiff = Math.floor(remainder / lowerUnit);
@@ -60,25 +60,25 @@ DateDiff.prototype.calculate = function(unitName, unit, lowerUnitName, lowerUnit
     }
 };
 
-DateDiff.prototype.getText = function(value, name) {
+DateAgo.prototype.getText = function(value, name) {
     return value + " " + (value > 1 ? (name + "s") : name);
 };
 
-var DateDiffWidget = function(renderer) {
+var DateAgoWidget = function(renderer) {
 	this.renderer = renderer;
 	this.generate();
 };
 
-DateDiffWidget.prototype.generate = function() {
+DateAgoWidget.prototype.generate = function() {
     this.date = this.renderer.getAttribute("date");
 	this.tag = "span";
 	this.attributes = {};
 	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[{
 		type: "text",
-		text: new DateDiff(new Date(), new Date(this.date)).diff()
+		text: new DateAgo(new Date(), new Date(this.date)).get()
 	}]);
 };
 
-exports.dateDiff = DateDiffWidget;
+exports.dateAgo = DateAgoWidget;
 
 })();

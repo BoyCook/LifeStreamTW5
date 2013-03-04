@@ -6,6 +6,6 @@ tags: template
     <div class="link-title">
         <a href={{##URL}} target="_blank"><$transclude index="title" parserType="text/raw"/></a>
     </div>
-    <$dateDiff date={{##date}}/>
+    <$dateAgo date={{##date}}/>
     {{##content}}
 </div>

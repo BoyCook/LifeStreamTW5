@@ -1,4 +1,4 @@
 title: Tweets
 tags: tweet
 
-{{{ [tag[tweet]] -[[Tweets]] ||$:/templates/TweetTemplate}}}
+{{{ [tag[tweet]!sort-date[##created_at]] -[[Tweets]] ||$:/templates/TweetTemplate}}}
