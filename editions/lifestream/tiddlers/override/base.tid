@@ -73,7 +73,7 @@ a.tw-tiddlylink {
 }
 
 .sidebar-header a.tw-tiddlylink {
-	color: #69699B;
+	color: #0088cc;
 }
 
 a.tw-tiddlylink:hover {
