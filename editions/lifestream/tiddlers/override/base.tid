@@ -53,11 +53,27 @@ pre {
 	border: 1px solid #ccc;
 }
 
+table {
+	border: 1px solid #ddd;
+	width: 100%;
+}
+
+table th, table td {
+	text-align: left;
+	padding: 0 0.5em 0 0.5em;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+}
+
 a.tw-tiddlylink {
 	text-decoration: none;
 	font-style: normal;
 	font-weight: normal;
 	color: {{$:/core/styles/colourmappings##linkforeground}};
+}
+
+.sidebar-header a.tw-tiddlylink {
+	color: #69699B;
 }
 
 a.tw-tiddlylink:hover {
@@ -118,7 +134,13 @@ a.tw-tiddlylink-missing {
 	-webkit-overflow-scrolling: touch;
 	padding: 4em 0em 2em 2em;
 	margin: 0;
+	text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
 }
+
+@media print {
+.sidebar-header {
+	display: none;
+}}
 
 .tw-menu-list-item {
 	white-space: nowrap;
@@ -129,7 +151,13 @@ a.tw-tiddlylink-missing {
 	padding: 2em;
 }
 
+@media print {
+.story-river {
+	margin-left: 1em;
+}}
+
 .tw-tiddler-frame {
+	position: relative;
 	padding: 3em;
 	margin-bottom: 2em;
 	background-color: {{$:/core/styles/colourmappings##tiddlerbackground}};
@@ -155,11 +183,19 @@ a.tw-tiddlylink-missing {
 
 .tw-tiddler-controls .tw-button {
 	margin: 0 0 0 0.5em;
+	vertical-align: middle;
+}
+
+.tw-tiddler-help {
+	color: #999;
+	margin-top: 1em;
+}
+
+.tw-tiddler-help a.tw-tiddlylink {
+	color: #888888;
 }
 
 .tw-drop-down {
-	display: block;
-	position: absolute;
 	min-width: 20em;
 	border: 1px solid {{$:/core/styles/colourmappings##dropdownborder}};
 	background-color: {{$:/core/styles/colourmappings##dropdownbackground}};
@@ -231,8 +267,68 @@ a.tw-tiddlylink-missing {
 	<<box-shadow "inset 0 1px 0 #fff">>;
 }
 
+.tw-tab-set {
+}
+
+.tw-tab-buttons {
+	font-size: 0.85em;
+	line-height: 100%;
+	margin-bottom: -1px;
+}
+
+.tw-tab-buttons button {
+	color: #666;
+	background-color: #ccc;
+	border-left: 1px solid #aaa;
+	border-top: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	margin-left: 0.25em;
+	margin-right: 0.25em;
+}
+
+.tw-tab-buttons button.tw-tab-selected {
+	background-color: #ececec;
+	border-bottom: 1px solid #ececec;
+}
+
+.tw-tab-contents {
+	border-top: 1px solid #aaa;
+	padding: 1em;
+}
+
+.tw-search-results {
+	padding: 1em;
+}
+
+.tw-drop-down .tw-tab-buttons button {
+	background-color: #ececec;
+}
+
+.tw-drop-down .tw-tab-buttons button.tw-tab-selected {
+	background-color: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+.tw-drop-down .tw-tab-contents a {
+	padding: 0 0.5em 0 0.5em;
+}
+
 .tw-edit-texteditor input, .tw-edit-texteditor textarea {
 	width: 100%;
+	padding: 0.2em 0.2em 0.2em 0.2em;
+	border: 1px solid #888;
+	-webkit-appearance: none;
+	margin: 0.25em 0 0.25em 0;
+}
+
+.tw-edit-texteditor input {
+	background-color: #f8f8f8;
+	<<box-shadow "inset 0 1px 8px rgba(0, 0, 0, 0.15)">>
+}
+
+.sidebar-header .tw-edit-texteditor input, .sidebar-header .tw-edit-texteditor textarea {
+	width: 90%;
 }
 
 canvas.tw-edit-bitmapeditor  {
@@ -250,3 +346,4 @@ embed {
 	width: 100%;
 	height: 20em;
 }
+

@@ -10,12 +10,7 @@ title: $:/templates/PageTemplate
 
 {{craig.png}width:180px;}
 
-<$list filter="[list[$:/StoryList]]" history="$:/HistoryList" itemClass="tw-menu-list-item"/>
-
-<div class="edit-controls">
-<$button message="tw-new-tiddler" class="btn btn-mini btn-success">New</$button>
-<$button message="tw-save-wiki" class="btn btn-mini btn-primary">Save</$button>
-</div>
+{{$:/templates/SideBar}}
 
 </header>
 
@@ -24,9 +19,6 @@ title: $:/templates/PageTemplate
 
 <!-- The main story -->
 <$list filter="[list[$:/StoryList]]" history="$:/HistoryList" template="$:/templates/ViewTemplate" editTemplate="$:/templates/EditTemplate" listview="classic" itemClass="tw-tiddler-frame"/>
-
-<!-- Config area -->
-{{$:/snippets/encryptionstatus}}
 
 <!-- End of story river -->
 </section>
