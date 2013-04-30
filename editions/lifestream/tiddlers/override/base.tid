@@ -1,5 +1,5 @@
 title: $:/core/styles/base
-tags: $:/core/styles
+tags: [[$:/tags/stylesheet]]
 
 \rules only filteredtranscludeinline transcludeinline macrodef macrocallinline
 \define border-radius(radius)
@@ -16,17 +16,41 @@ tags: $:/core/styles
           box-shadow: $shadow$;
 ```
 \end
+\define background-linear-gradient(gradient)
+```
+background-image: linear-gradient($gradient$);
+background-image: -o-linear-gradient($gradient$);
+background-image: -moz-linear-gradient($gradient$);
+background-image: -webkit-linear-gradient($gradient$);
+background-image: -ms-linear-gradient($gradient$);
+```
+\end
+
+/*
+** Start with the normalize CSS reset, and then belay some of its effects
+*/
 
 {{$:/core/styles/reset}}
 
+*, input[type="search"] {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+/*
+** Basic element styles
+*/
+
 html {
-	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 body {
 	font-size: {{$:/core/styles/metrics##fontsize}};
 	line-height: {{$:/core/styles/metrics##lineheight}};
-	background-color: {{$:/core/styles/colourmappings##pagebackground}}
+	background-color: {{$:/core/styles/colourmappings##pagebackground}};
+	word-wrap: break-word;
 }
 
 code, pre {
@@ -65,6 +89,19 @@ table th, table td {
 	border-left: 1px solid #ddd;
 }
 
+img, canvas, embed {
+	max-width: 100%;
+}
+
+embed {
+	width: 100%;
+	height: 20em;
+}
+
+/*
+** Links
+*/
+
 a.tw-tiddlylink {
 	text-decoration: none;
 	font-style: normal;
@@ -73,7 +110,19 @@ a.tw-tiddlylink {
 }
 
 .sidebar-header a.tw-tiddlylink {
-	color: #0088cc;
+	color: #d00;
+}
+
+.sidebar-header a.tw-tiddlylink:hover {
+	color: #f66;
+}
+
+.tw-sidebar-lists a.tw-tiddlylink {
+	color: #999;
+}
+
+.tw-sidebar-lists a.tw-tiddlylink:hover {
+	color: #444;
 }
 
 a.tw-tiddlylink:hover {
@@ -89,6 +138,56 @@ a.tw-tiddlylink-missing {
 	font-style: italic;
 }
 
+/*
+** Drag and drop styles
+*/
+
+.tw-tiddler-dragger {
+	display: inline-block;
+	padding: 8px 20px;
+	font-size: 16.9px;
+	font-weight: bold;
+	line-height: 20px;
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 1);
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #000;
+	<<border-radius 20px>>
+}
+
+.tw-import {
+	position: relative;
+}
+
+.tw-drop-zone-fullscreen.tw-dragover:before {
+	z-index: 10000;
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,200,0,0.7);
+	text-align: center;
+	content: "Drop here";
+}
+
+.tw-drop-zone.tw-dragover:before {
+	z-index: 10000;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,200,0,0.7);
+	text-align: center;
+	content: "Drop here";
+}
+
+/*
+** Buttons
+*/
+
 .btn-invisible {
 	padding: 0;
 	margin: 0;
@@ -96,8 +195,34 @@ a.tw-tiddlylink-missing {
 	border: none;
 }
 
+.btn-mini {
+	color: #e0e0e0;
+}
+
+.btn-mini:hover {
+	color: #444;
+}
+
+/*
+** Tags and missing tiddlers
+*/
+
 .tw-tags-wrapper {
 	margin: 0.25em 0 1em 0;
+}
+
+.tw-missing-tiddler-label {
+	font-style: italic;
+	font-weight: normal;
+	display: inline-block;
+	padding: 2px 4px;
+	font-size: 11.844px;
+	line-height: 14px;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border: 1px solid rgba(0,0,0,0.2);
+	<<border-radius 3px>>
+	<<box-shadow "inset 1px 1px 0 rgba(255,255,255,0.5)">>
 }
 
 .tw-tag-label {
@@ -120,49 +245,88 @@ a.tw-tiddlylink-missing {
 	<<box-shadow "inset 0px 2em 0 rgba(0,0,0,0.22)">>
 }
 
-.edit-header {
-}
+/*
+** Page layout
+*/
 
 .sidebar-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: {{$:/core/styles/metrics##sidebarwidth}};
-	overflow-y: auto;
-	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	padding: 4em 0em 2em 2em;
-	margin: 0;
 	text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
 }
 
-@media print {
-.sidebar-header {
-	display: none;
-}}
+.sidebar-header .tw-tab-set p {
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+}
+
+.tw-search-results {
+	padding-top: 1em;
+}
 
 .tw-menu-list-item {
 	white-space: nowrap;
 }
 
-.story-river {
-	margin-left: {{$:/core/styles/metrics##sidebarwidth}};
-	padding: 2em;
+@media (max-width: 55em) {
+	.sidebar-header {
+		padding: 1em;
+	}
+
+	.story-river {
+		padding: 0;
+	}
+}
+
+@media (min-width: 55em) {
+	.sidebar-header {
+		position: fixed;
+		top: 0;
+		left: 55em;
+		bottom: 0;
+		right: 0;
+		overflow-y: auto;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		margin: 0 0 0 -3em;
+		padding: 5em 0 2em 3em;
+	}
+
+	.story-river {
+		width: 55em;
+		padding: 3em;
+	}
 }
 
 @media print {
-.story-river {
-	margin-left: 1em;
-}}
+	.sidebar-header {
+		display: none;
+	}
+
+	.story-river {
+		margin-left: 1em;
+	}
+}
+
+/*
+** Tiddler styles
+*/
 
 .tw-tiddler-frame {
 	position: relative;
-	padding: 3em;
 	margin-bottom: 2em;
 	background-color: {{$:/core/styles/colourmappings##tiddlerbackground}};
-	max-width: 50em;
 	<<box-shadow "5px 5px 5px rgba(0, 0, 0, 0.1)">>
+}
+
+@media (max-width: 55em) {
+	.tw-tiddler-frame {
+		padding: 1em 1em 1em 1em;
+	}
+}
+
+@media (min-width: 55em) {
+	.tw-tiddler-frame {
+		padding: 2em 3em 3em 3em;
+	}
 }
 
 .title {
@@ -182,11 +346,15 @@ a.tw-tiddlylink-missing {
 }
 
 .tw-tiddler-controls .tw-button {
-	margin: 0 0 0 0.5em;
-	vertical-align: middle;
+	margin: 0 0 0 0.33em;
+	vertical-align: baseline;
 }
 
-.tw-tiddler-help {
+.tw-tiddler-controls .tw-button img {
+	height: 0.75em;
+}
+
+.tw-tiddler-help { /* Help prompts within tiddler template */
 	color: #999;
 	margin-top: 1em;
 }
@@ -194,6 +362,31 @@ a.tw-tiddlylink-missing {
 .tw-tiddler-help a.tw-tiddlylink {
 	color: #888888;
 }
+
+.tw-tiddler-frame .tw-edit-texteditor input, .tw-tiddler-frame .tw-edit-texteditor textarea {
+	width: 100%;
+	padding: 3px 3px 3px 3px;
+	border: 1px solid #888;
+	line-height: 1.3em;
+	-webkit-appearance: none;
+	margin: 0.25em 0 0.25em 0;
+}
+
+.tw-tiddler-frame .tw-edit-texteditor input {
+	background-color: #f8f8f8;
+	<<box-shadow "inset 0 1px 8px rgba(0, 0, 0, 0.15)">>
+}
+
+canvas.tw-edit-bitmapeditor  {
+	cursor: crosshair;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+/*
+** Dropdowns
+*/
 
 .tw-drop-down {
 	min-width: 20em;
@@ -216,6 +409,23 @@ a.tw-tiddlylink-missing {
 	background-color: {{$:/core/styles/colourmappings##linkforeground}};
 	text-decoration: none;
 }
+
+.tw-drop-down .tw-tab-buttons button {
+	background-color: #ececec;
+}
+
+.tw-drop-down .tw-tab-buttons button.tw-tab-selected {
+	background-color: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+.tw-drop-down .tw-tab-contents a {
+	padding: 0 0.5em 0 0.5em;
+}
+
+/*
+** Modals
+*/
 
 .modal-backdrop {
 	position: fixed;
@@ -267,12 +477,17 @@ a.tw-tiddlylink-missing {
 	<<box-shadow "inset 0 1px 0 #fff">>;
 }
 
+/*
+** Tabs
+*/
+
 .tw-tab-set {
 }
 
 .tw-tab-buttons {
 	font-size: 0.85em;
 	line-height: 100%;
+	padding-top: 1em;
 	margin-bottom: -1px;
 }
 
@@ -292,58 +507,56 @@ a.tw-tiddlylink-missing {
 	border-bottom: 1px solid #ececec;
 }
 
-.tw-tab-contents {
+.tw-tab-divider {
 	border-top: 1px solid #aaa;
-	padding: 1em;
 }
 
-.tw-search-results {
-	padding: 1em;
+.tw-tab-content {
+	padding-top: 1em;
 }
 
-.tw-drop-down .tw-tab-buttons button {
+.tw-sidebar-tab-divider.tw-tab-divider {
+	border-top: none;
+	height: 1px;
+	<<background-linear-gradient "left, rgb(160,160,160) 0%, rgb(236,236,236) 250px">>
+}
+
+.tw-more-sidebar.tw-tab-set {
+	white-space: nowrap;
+}
+
+@media (min-width: 55em) {
+	.tw-more-sidebar.tw-tab-set {
+		margin-left: -3em;
+	}
+}
+
+.tw-more-sidebar .tw-tab-buttons {
+	display: inline-block;
+	vertical-align: top;
+	text-align: right;
+	padding-top: 0em;
+	padding-left: 0em;
+}
+
+.tw-more-sidebar .tw-tab-content {
+	display: inline-block;
+	vertical-align: top;
+	padding-top: 0em;
+	padding-left: 1em;
+}
+
+.tw-more-sidebar .tw-tab-buttons button {
 	background-color: #ececec;
+	<<background-linear-gradient "left, rgb(236,236,236) 0%, rgb(224,224,224) 100%">>
+	border-top: none;
+	border-left: none;
+	border-bottom: none;
+	border-right: 1px solid #ccc;
 }
 
-.tw-drop-down .tw-tab-buttons button.tw-tab-selected {
+.tw-more-sidebar .tw-tab-buttons button.tw-tab-selected {
 	background-color: #fff;
-	border-bottom: 1px solid #fff;
+	<<background-linear-gradient "left, rgb(236,236,236) 0%, rgb(255,255,255) 100%">>
+	border: none;
 }
-
-.tw-drop-down .tw-tab-contents a {
-	padding: 0 0.5em 0 0.5em;
-}
-
-.tw-edit-texteditor input, .tw-edit-texteditor textarea {
-	width: 100%;
-	padding: 0.2em 0.2em 0.2em 0.2em;
-	border: 1px solid #888;
-	-webkit-appearance: none;
-	margin: 0.25em 0 0.25em 0;
-}
-
-.tw-edit-texteditor input {
-	background-color: #f8f8f8;
-	<<box-shadow "inset 0 1px 8px rgba(0, 0, 0, 0.15)">>
-}
-
-.sidebar-header .tw-edit-texteditor input, .sidebar-header .tw-edit-texteditor textarea {
-	width: 90%;
-}
-
-canvas.tw-edit-bitmapeditor  {
-	cursor: crosshair;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-}
-
-img, canvas, embed {
-	max-width: 100%;
-}
-
-embed {
-	width: 100%;
-	height: 20em;
-}
-
