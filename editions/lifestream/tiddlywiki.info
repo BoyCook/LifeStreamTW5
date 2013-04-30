@@ -1,6 +1,15 @@
 {
 	"plugins": [
-		"tiddlywiki/fullscreen",
-		"tiddlywiki/tw2parser"
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem"
+	],
+	"themes": [
+		"tiddlywiki/snowwhite"
+	],
+	"doNotSave": [
+		"$:/StoryList",
+		"$:/HistoryList",
+		"$:/status/IsLoggedIn",
+		"$:/status/UserName"
 	]
 }
