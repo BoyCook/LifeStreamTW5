@@ -1,0 +1,41 @@
+{
+  "name": "lifestream",
+  "preferGlobal": "true",
+  "version": "0.0.1",
+  "author": "Craig Cook",
+  "description": "an edition for TW5",
+  "contributors": [ 
+    {
+      "name": "Craig Cook"
+    } 
+  ],
+  "bin": {
+    "tiddlywiki": "./node_modules/tiddlywiki/tiddlywiki.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BoyCook/CraigCook.git"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "tiddlywiki5",
+    "wiki",
+    "lifestream"
+  ],
+  "dependencies" : {
+      "socket.io": "0.9.13",
+      "tiddlywiki5": "https://github.com/BoyCook/TiddlyWiki5/tarball/master",
+      "twitter-js-client": "https://github.com/BoyCook/TwitterJSClient/tarball/master",
+      "wordpress-js-client": "https://github.com/BoyCook/WordPressJSClient/tarball/master",
+      "github-js-client": "https://github.com/BoyCook/GitHubJSClient/tarball/master",
+      "jenkins-js-client": "https://github.com/BoyCook/JenkinsJSClient/tarball/master"
+  },
+  "devDependencies": {
+  },
+  "bundleDependencies": [
+  ],
+  "license": "BSD",
+  "engines": {
+    "node": ">=0.8.2"
+  }
+}
