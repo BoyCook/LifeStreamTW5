@@ -1,0 +1,8 @@
+{
+	"plugins": [
+		"tiddlywiki/tahoelafs"
+	],
+	"themes": [
+		"tiddlywiki/snowwhite"
+	]
+}
