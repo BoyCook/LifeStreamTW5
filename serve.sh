@@ -38,6 +38,7 @@ else
     node $TW5_LOC \
         $TW5_EDITION \
         --verbose \
+        --lifestream ./config.json twitter wordpress github jenkins \
         --server 30080 $:/core/templates/tiddlywiki5.template.html text/plain text/html \
         || exit 1
 fi

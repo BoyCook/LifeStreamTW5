@@ -25,16 +25,31 @@ Command.prototype.execute = function() {
     var context = this;
     var configFile = this.params[0] ? this.params[0] : '../../config.json';
     var toLoad = this.params.slice(1);
+    var config = this.loadConfig(configFile);
+    if (!(typeof config === "undefined")) {
+        //Execute any lifestream modules that are passed in as params
+        $tw.modules.forEachModuleOfType("lifestream", function(title, module) {
+            var name = module.info.name;
+            if (toLoad.indexOf(name) > -1) {
+                console.log('Loading lifestream module [%s] - [%s]', name, title);
+                context.loadModule(module, config[name])
+            }
+        });
+    } else {
+        console.log('ERROR - Failed to load LifeStream config file, aborting module load');
+    }
+};
+
+Command.prototype.loadConfig = function(fileName) {
+    var config = undefined;
     var fs = require("fs");
-    var config = JSON.parse(fs.readFileSync(configFile));
-    //Execute any lifestream modules that are passed in as params
-    $tw.modules.forEachModuleOfType("lifestream", function(title, module) {
-        var name = module.info.name;
-        if (toLoad.indexOf(name) > -1) {
-            console.log('Loading lifestream module [%s] - [%s]', name, title);
-            context.loadModule(module, config[name])
+    if (fs.existsSync(fileName)) {
+        var file = fs.readFileSync(fileName);
+        if (!(typeof file === "undefined")) {
+            config = JSON.parse(file);
         }
-    });
+    }
+    return config;
 };
 
 Command.prototype.loadModule = function(module, config) {
