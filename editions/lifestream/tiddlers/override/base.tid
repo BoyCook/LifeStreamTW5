@@ -109,14 +109,6 @@ a.tw-tiddlylink {
 	color: {{$:/core/styles/colourmappings##linkforeground}};
 }
 
-.sidebar-header a.tw-tiddlylink {
-	color: #d00;
-}
-
-.sidebar-header a.tw-tiddlylink:hover {
-	color: #f66;
-}
-
 .tw-sidebar-lists a.tw-tiddlylink {
 	color: #999;
 }
@@ -227,7 +219,7 @@ a.tw-tiddlylink-missing {
 
 .tw-tag-label {
 	display: inline-block;
-	padding: 2px 4px;
+	padding: 2px 6px;
 	font-size: 11.844px;
 	font-weight: bold;
 	line-height: 14px;
@@ -236,13 +228,7 @@ a.tw-tiddlylink-missing {
 	white-space: nowrap;
 	vertical-align: baseline;
 	background-color: #999999;
-	border: 1px solid rgba(0,0,0,0.0);
-	<<border-radius 3px>>
-	<<box-shadow "inset 1px 1px 0 rgba(255,255,255,0.22)">>
-}
-
-.tw-tag-label:hover {
-	<<box-shadow "inset 0px 2em 0 rgba(0,0,0,0.22)">>
+	<<border-radius 5px>>
 }
 
 /*
@@ -253,13 +239,26 @@ a.tw-tiddlylink-missing {
 	text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
 }
 
-.sidebar-header .tw-tab-set p {
+.sidebar-header .tw-sidebar-lists p {
 	margin-top: 0.2em;
 	margin-bottom: 0.2em;
 }
 
+.tw-search a img {
+	height: 0.75em;
+}
+
 .tw-search-results {
 	padding-top: 1em;
+}
+
+.tw-page-controls {
+	margin-top: 1em;
+}
+
+.tw-page-controls img {
+	height: 1.5em;
+	padding-right: 0.5em;
 }
 
 .tw-menu-list-item {
@@ -314,7 +313,12 @@ a.tw-tiddlylink-missing {
 	position: relative;
 	margin-bottom: 2em;
 	background-color: {{$:/core/styles/colourmappings##tiddlerbackground}};
-	<<box-shadow "5px 5px 5px rgba(0, 0, 0, 0.1)">>
+}
+
+@media screen {
+	.tw-tiddler-frame {
+		<<box-shadow "5px 5px 5px rgba(0, 0, 0, 0.1)">>
+	}
 }
 
 @media (max-width: 55em) {
@@ -352,6 +356,12 @@ a.tw-tiddlylink-missing {
 
 .tw-tiddler-controls .tw-button img {
 	height: 0.75em;
+}
+
+@media print {
+	.tw-tiddler-controls {
+		display: none;
+	}
 }
 
 .tw-tiddler-help { /* Help prompts within tiddler template */
@@ -527,7 +537,7 @@ canvas.tw-edit-bitmapeditor  {
 
 @media (min-width: 55em) {
 	.tw-more-sidebar.tw-tab-set {
-		margin-left: -3em;
+		margin-left: -1em;
 	}
 }
 
