@@ -41,6 +41,12 @@ ListWidget.prototype.generate = function() {
 	this.template = this.renderer.getAttribute("template");
 	this.editTemplate = this.renderer.getAttribute("editTemplate");
 	this.emptyMessage = this.renderer.getAttribute("emptyMessage");
+	this["class"] = this.renderer.getAttribute("class");
+	// Set up the classes
+	var classes = ["tw-list-frame"];
+	if(this["class"]) {
+		$tw.utils.pushTop(classes,this["class"]);
+	}
 	// Get the list of tiddlers object
 	this.getTiddlerList();
 	// Create the list
@@ -57,9 +63,9 @@ ListWidget.prototype.generate = function() {
 	// Create the list frame element
 	this.tag = this.renderer.parseTreeNode.isBlock ? "div" : "span";
 	this.attributes = {
-		"class": "tw-list-frame"
+		"class": classes.join(" ")
 	};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,listMembers);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,listMembers);
 };
 
 ListWidget.prototype.getTiddlerList = function() {
@@ -72,7 +78,7 @@ ListWidget.prototype.getTiddlerList = function() {
 	if(!filter) {
 		filter = "[!is[system]]";
 	}
-	this.list = this.renderer.renderTree.wiki.filterTiddlers(filter,this.renderer.getContextTiddlerTitle());
+	this.list = this.renderer.renderTree.wiki.filterTiddlers(filter,this.renderer.tiddlerTitle);
 };
 
 /*
@@ -253,7 +259,7 @@ ListWidget.prototype.handleListChanges = function(changedTiddlers) {
 				this.removeListElement(t);
 			}
 			// Insert the empty message
-			this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[this.getEmptyMessage()]);
+			this.children = this.renderer.renderTree.createRenderers(this.renderer,[this.getEmptyMessage()]);
 			$tw.utils.each(this.children,function(node) {
 				if(node.renderInDom) {
 					self.renderer.domNode.appendChild(node.renderInDom());
@@ -273,7 +279,7 @@ ListWidget.prototype.handleListChanges = function(changedTiddlers) {
 		var index = this.findListElementByTitle(t,this.list[t]);
 		if(index === undefined) {
 			// The list element isn't there, so we need to insert it
-			this.children.splice(t,0,this.renderer.renderTree.createRenderer(this.renderer.renderContext,this.createListElement(this.list[t])));
+			this.children.splice(t,0,this.renderer.renderTree.createRenderer(this.renderer,this.createListElement(this.list[t])));
 			this.renderer.domNode.insertBefore(this.children[t].renderInDom(),this.renderer.domNode.childNodes[t]);
 			// Ask the listview to animate the insertion
 			if(this.listview && this.listview.insert) {

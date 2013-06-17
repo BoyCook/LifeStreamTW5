@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/navigator.js
+title: $:/core/modules/widgets/navigator.js
 type: application/javascript
 module-type: widget
 
@@ -28,7 +28,7 @@ NavigatorWidget.prototype.generate = function() {
 	this.attributes = {
 		"class": "tw-navigator"
 	};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.renderer.parseTreeNode.children);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,this.renderer.parseTreeNode.children);
 	this.events = [
 		{name: "tw-navigate", handlerObject: this, handlerMethod: "handleNavigateEvent"},
 		{name: "tw-edit-tiddler", handlerObject: this, handlerMethod: "handleEditTiddlerEvent"},

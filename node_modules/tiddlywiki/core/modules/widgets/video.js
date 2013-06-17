@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/video.js
+title: $:/core/modules/widgets/video.js
 type: application/javascript
 module-type: widget
 
@@ -57,7 +57,7 @@ VideoWidget.prototype.generate = function() {
 		default:
 			this.tag = "div";
 			this.attributes = {};
-			this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[{
+			this.children = this.renderer.renderTree.createRenderers(this.renderer,[{
 				type: "text",
 				text: "Unknown video type"
 			}]);

@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/link.js
+title: $:/core/modules/widgets/link.js
 type: application/javascript
 module-type: widget
 
@@ -26,12 +26,12 @@ var LinkWidget = function(renderer) {
 
 LinkWidget.prototype.generate = function() {
 	// Get the parameters from the attributes
-	this.to = this.renderer.getAttribute("to");
+	this.to = this.renderer.getAttribute("to",this.renderer.tiddlerTitle);
 	this.hover = this.renderer.getAttribute("hover");
 	this.qualifyHoverTitles = this.renderer.getAttribute("qualifyHoverTitles");
 	// Qualify the hover tiddler title if needed
 	if(this.qualifyHoverTitles) {
-		this.hover =  this.hover + "-" + this.renderer.getContextScopeId();
+		this.hover =  this.hover + "-" + this.renderer.renderTree.getContextScopeId(this.renderer.parentRenderer);
 	}
 	// Determine the default link characteristics
 	this.isExternal = isLinkExternal(this.to);
@@ -66,7 +66,7 @@ LinkWidget.prototype.generate = function() {
 		events.push({name: "mouseout", handlerObject: this, handlerMethod: "handleMouseOverOrOutEvent"});
 	}
 	// Get the value of the tw-wikilinks configuration macro
-	var wikiLinksMacro = this.renderer.findMacroDefinition("tw-wikilinks"),
+	var wikiLinksMacro = this.renderer.renderTree.findMacroDefinition(this.renderer.parentRenderer,"tw-wikilinks"),
 		useWikiLinks = wikiLinksMacro ? !(wikiLinksMacro.text.trim() === "no") : true;
 	// Set up the element
 	if(useWikiLinks) {
@@ -77,7 +77,7 @@ LinkWidget.prototype.generate = function() {
 		if(this.isExternal) {
 			this.attributes.href = this.to;
 		} else {
-			var wikiLinkTemplateMacro = this.renderer.findMacroDefinition("tw-wikilink-template"),
+			var wikiLinkTemplateMacro = this.renderer.renderTree.findMacroDefinition(this.renderer.parentRenderer,"tw-wikilink-template"),
 				wikiLinkTemplate = wikiLinkTemplateMacro ? wikiLinkTemplateMacro.text.trim() : "$uri_encoded$";
 			this.wikiLinkText = wikiLinkTemplate.replace("$uri_encoded$",encodeURIComponent(this.to));
 			this.wikiLinkText = this.wikiLinkText.replace("$uri_doubleencoded$",encodeURIComponent(encodeURIComponent(this.to)));
@@ -87,7 +87,7 @@ LinkWidget.prototype.generate = function() {
 	} else {
 		this.tag = "span";
 	}
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.renderer.parseTreeNode.children);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,this.renderer.parseTreeNode.children);
 };
 
 LinkWidget.prototype.handleClickEvent = function(event) {
@@ -123,10 +123,10 @@ LinkWidget.prototype.handleDragStartEvent = function(event) {
 		// Set the dragging class on the element being dragged
 		$tw.utils.addClass(event.target,"tw-tiddlylink-dragging");
 		// Create the drag image element
-		this.dragImage = document.createElement("div");
+		this.dragImage = this.renderer.renderTree.document.createElement("div");
 		this.dragImage.className = "tw-tiddler-dragger";
-		this.dragImage.appendChild(document.createTextNode(this.to));
-		document.body.appendChild(this.dragImage);
+		this.dragImage.appendChild(this.renderer.renderTree.document.createTextNode(this.to));
+		this.renderer.renderTree.document.body.appendChild(this.dragImage);
 		// Set the data transfer properties
 		var dataTransfer = event.dataTransfer;
 		dataTransfer.effectAllowed = "copy";

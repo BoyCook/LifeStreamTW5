@@ -68,6 +68,11 @@ exports.startup = function() {
 		document.addEventListener("tw-modal",function(event) {
 			$tw.modal.display(event.param);
 		},false);
+		// Install the notification  mechanism
+		$tw.notifier = new $tw.utils.Notifier($tw.wiki);
+		document.addEventListener("tw-notify",function(event) {
+			$tw.notifier.display(event.param);
+		},false);
 		// Install the scroller
 		$tw.pageScroller = new $tw.utils.PageScroller();
 		document.addEventListener("tw-scroll",$tw.pageScroller,false);
@@ -94,8 +99,22 @@ exports.startup = function() {
 		document.addEventListener("tw-clear-password",function(event) {
 			$tw.crypto.setPassword(null);
 		});
+		// Install the animator
+		$tw.anim = new $tw.utils.Animator();
 		// Kick off the stylesheet manager
 		$tw.stylesheetManager = new $tw.utils.StylesheetManager($tw.wiki);
+		// Display the PageTemplate
+		var templateTitle = "$:/core/ui/PageTemplate",
+			parser = $tw.wiki.parseTiddler(templateTitle),
+			renderTree = new $tw.WikiRenderTree(parser,{wiki: $tw.wiki, context: {tiddlerTitle: templateTitle}, document: document});
+		renderTree.execute();
+		$tw.pageContainer = document.createElement("div");
+		$tw.utils.addClass($tw.pageContainer,"tw-page-container");
+		document.body.insertBefore($tw.pageContainer,document.body.firstChild);
+		renderTree.renderInDom($tw.pageContainer);
+		$tw.wiki.addEventListener("change",function(changes) {
+			renderTree.refreshInDom(changes);
+		});
 		// If we're being viewed on a data: URI then give instructions for how to save
 		if(document.location.protocol === "data:") {
 			$tw.utils.dispatchCustomEvent(document,"tw-modal",{
@@ -107,17 +126,6 @@ exports.startup = function() {
 				param: "$:/messages/GettingStarted"
 			});
 		}
-		// Display the PageTemplate
-		var templateTitle = "$:/templates/PageTemplate",
-			parser = $tw.wiki.parseTiddler(templateTitle),
-			renderTree = new $tw.WikiRenderTree(parser,{wiki: $tw.wiki});
-		renderTree.execute({tiddlerTitle: templateTitle});
-		var container = document.createElement("div");
-		document.body.insertBefore(container,document.body.firstChild);
-		renderTree.renderInDom(container);
-		$tw.wiki.addEventListener("change",function(changes) {
-			renderTree.refreshInDom(changes);
-		});
 	} else {
 		// On the server, start a commander with the command line arguments
 		commander = new $tw.Commander(

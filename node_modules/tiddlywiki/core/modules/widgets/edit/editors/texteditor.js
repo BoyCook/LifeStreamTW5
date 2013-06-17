@@ -56,7 +56,17 @@ TextEditor.prototype.render = function() {
 		type: "element",
 		attributes: {}
 	};
-	var type = this.editWidget.renderer.getAttribute("type",this.fieldName === "text" ? "textarea" : "input");
+	// Get the edit type associated with this field
+	var type = "input";
+	if(this.fieldName === "text") {
+		type = "textarea";
+	} else {
+		var fieldModule = $tw.Tiddler.fieldModules[this.fieldName];
+		if(fieldModule && fieldModule.editType) {
+			type = fieldModule.editType;
+		}
+	}
+	var type = this.editWidget.renderer.getAttribute("type",type);
 	switch(type) {
 		case "textarea":
 			node.tag = "textarea";
@@ -64,6 +74,11 @@ TextEditor.prototype.render = function() {
 				type: "text",
 				text: editInfo.value
 			}];
+			break;
+		case "color":
+			node.tag = "input";
+			node.attributes.type = {type: "string", value: "color"};
+			node.attributes.value = {type: "string", value: editInfo.value};
 			break;
 		case "search":
 			node.tag = "input";
@@ -76,35 +91,60 @@ TextEditor.prototype.render = function() {
 			node.attributes.value = {type: "string", value: editInfo.value};
 			break;
 	}
+	node.events = [
+		{name: "focus", handlerObject: this, handlerMethod: "handleFocusEvent"},
+		{name: "blur", handlerObject: this, handlerMethod: "handleBlurEvent"},
+		{name: "input", handlerObject: this, handlerMethod: "handleInputEvent"}
+	];
+	// Add a placeholder if specified
+	if(this.editWidget.renderer.hasAttribute("placeholder")) {
+		node.attributes.placeholder = {type: "string", value: this.editWidget.renderer.getAttribute("placeholder")};
+	}
 	// Set the element details
 	this.editWidget.tag = this.editWidget.renderer.parseTreeNode.isBlock ? "div" : "span";
 	this.editWidget.attributes = {
 		"class": "tw-edit-texteditor"
 	};
-	if(this.editWidget.renderer.parseTreeNode.attributes["class"]) {
-		this.editWidget.attributes["class"] += " " + this.editWidget.renderer.parseTreeNode.attributes["class"].value;
+	if(this.editWidget.renderer.hasAttribute("class")) {
+		this.editWidget.attributes["class"] += " " + this.editWidget.renderer.getAttribute("class");
 	}
-	if(this.editWidget.renderer.parseTreeNode.attributes.style) {
+	if(this.editWidget.renderer.hasAttribute("style")) {
 		this.editWidget.attributes.style = this.editWidget.attributes.style || "";
-		this.editWidget.attributes.style += this.editWidget.renderer.parseTreeNode.attributes.style.value;
+		this.editWidget.attributes.style += this.editWidget.renderer.getAttribute("style");
 	}
-	this.editWidget.children = this.editWidget.renderer.renderTree.createRenderers(this.editWidget.renderer.renderContext,[node]);
-	this.editWidget.events = [
-		{name: "focus", handlerObject: this},
-		{name: "blur", handlerObject: this},
-		{name: "keyup", handlerObject: this}
-	];
+	this.editWidget.children = this.editWidget.renderer.renderTree.createRenderers(this.editWidget.renderer,[node]);
 };
 
-TextEditor.prototype.handleEvent = function(event) {
-	// Get the value of the field if it might have changed
-	if(["keyup","focus","blur"].indexOf(event.type) !== -1) {
-		this.saveChanges();
+TextEditor.prototype.setFocus = function() {
+	if(this.editWidget.renderer.hasAttribute("focusSet")) {
+		var title = this.editWidget.renderer.getAttribute("focusSet");
+		if(this.editWidget.renderer.getAttribute("qualifyTiddlerTitles") === "yes") {
+			title =  title + "-" + this.editWidget.renderer.renderTree.getContextScopeId(this.editWidget.renderer.parentRenderer);
+		}
+		$tw.popup.triggerPopup({
+			domNode: this.editWidget.renderer.domNode,
+			title: title,
+			wiki: this.editWidget.renderer.renderTree.wiki,
+			force: true
+		});
 	}
-	// Fix the height of the textarea if required
-	if(["keyup","focus"].indexOf(event.type) !== -1) {
-		this.fixHeight();
-	}
+};
+
+TextEditor.prototype.handleFocusEvent = function(event) {
+//	this.saveChanges();
+//	this.fixHeight();
+	this.setFocus();
+	return true;
+};
+
+TextEditor.prototype.handleBlurEvent = function(event) {
+//	this.saveChanges();
+	return true;
+};
+
+TextEditor.prototype.handleInputEvent = function(event) {
+	this.saveChanges();
+	this.fixHeight();
 	return true;
 };
 
@@ -127,12 +167,20 @@ TextEditor.prototype.fixHeight = function() {
 		$tw.utils.nextTick(function() {
 			// Resize the textarea to fit its content
 			var textarea = self.editWidget.children[0].domNode,
-				scrollTop = document.body.scrollTop;
+				scrollPosition = $tw.utils.getScrollPosition(),
+				scrollTop = scrollPosition.y;
+			// Set its height to auto so that it snaps to the correct height
 			textarea.style.height = "auto";
+			// Calculate the revised height
 			var newHeight = Math.max(textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight,MIN_TEXT_AREA_HEIGHT);
+			// Only try to change the height if it has changed
 			if(newHeight !== textarea.offsetHeight) {
 				textarea.style.height =  newHeight + "px";
-				document.body.scrollTop = scrollTop;
+				// Make sure that the dimensions of the textarea are recalculated
+				$tw.utils.forceLayout(textarea);
+				// Check that the scroll position is still visible before trying to scroll back to it
+				scrollTop = Math.min(scrollTop,self.editWidget.renderer.renderTree.document.body.scrollHeight - window.innerHeight);
+				window.scrollTo(scrollPosition.x,scrollTop);
 			}
 		});
 	}
@@ -143,7 +191,7 @@ TextEditor.prototype.postRenderInDom = function() {
 };
 
 TextEditor.prototype.refreshInDom = function() {
-	if(document.activeElement !== this.editWidget.children[0].domNode) {
+	if(this.editWidget.renderer.renderTree.document.activeElement !== this.editWidget.children[0].domNode) {
 		var editInfo = this.getEditInfo();
 		this.editWidget.children[0].domNode.value = editInfo.value;
 	}

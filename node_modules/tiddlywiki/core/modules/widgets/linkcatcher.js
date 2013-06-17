@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/linkcatcher.js
+title: $:/core/modules/widgets/linkcatcher.js
 type: application/javascript
 module-type: widget
 
@@ -24,12 +24,15 @@ var LinkCatcherWidget = function(renderer) {
 LinkCatcherWidget.prototype.generate = function() {
 	// Get our attributes
 	this.to = this.renderer.getAttribute("to");
+	this.message = this.renderer.getAttribute("message");
+	this.set = this.renderer.getAttribute("set");
+	this.setTo = this.renderer.getAttribute("setTo");
 	// Set the element
 	this.tag = "div";
 	this.attributes = {
 		"class": "tw-linkcatcher"
 	};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.renderer.parseTreeNode.children);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,this.renderer.parseTreeNode.children);
 	this.events = [
 		{name: "tw-navigate", handlerObject: this, handlerMethod: "handleNavigateEvent"}
 	];
@@ -47,7 +50,17 @@ LinkCatcherWidget.prototype.refreshInDom = function(changedAttributes,changedTid
 // Navigate to a specified tiddler
 LinkCatcherWidget.prototype.handleNavigateEvent = function(event) {
 	if(this.to) {
-		this.renderer.renderTree.wiki.setTextReference(this.to,event.navigateTo,this.renderer.getContextTiddlerTitle());
+		this.renderer.renderTree.wiki.setTextReference(this.to,event.navigateTo,this.renderer.tiddlerTitle);
+	}
+	if(this.message) {
+		$tw.utils.dispatchCustomEvent(this.renderer.domNode,this.message,{
+			param: event.navigateTo,
+			tiddlerTitle: this.renderer.tiddlerTitle
+		});
+	}
+	if(this.set) {
+		var tiddler = this.renderer.renderTree.wiki.getTiddler(this.set);
+		this.renderer.renderTree.wiki.addTiddler(new $tw.Tiddler(tiddler,{title: this.set, text: this.setTo}));
 	}
 	event.stopPropagation();
 	return false;

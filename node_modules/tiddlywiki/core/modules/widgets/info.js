@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/info.js
+title: $:/core/modules/widgets/info.js
 type: application/javascript
 module-type: widget
 
@@ -20,12 +20,12 @@ var InfoWidget = function(renderer) {
 };
 
 InfoWidget.types = {
-	changecount: function(options) {return options.wiki.getChangeCount(options.title);}
+	changecount: function(options) {return options.wiki.getChangeCount(options.widget.renderer.tiddlerTitle);},
+	currentField: function(options) {return options.widget.renderer.renderTree.getContextVariable(options.widget.renderer,"field","text");}
 };
 
 InfoWidget.prototype.generate = function() {
 	// Get attributes
-	this.tiddlerTitle = this.renderer.getAttribute("tiddler",this.renderer.getContextTiddlerTitle());
 	this.type = this.renderer.getAttribute("type","changecount");
 	// Get the appropriate value for the current tiddler
 	var value = "",
@@ -33,13 +33,13 @@ InfoWidget.prototype.generate = function() {
 	if(fn) {
 		value = fn({
 			wiki: this.renderer.renderTree.wiki,
-			title: this.tiddlerTitle
+			widget: this
 		});
 	}
 	// Set the element
 	this.tag = "span";
 	this.attributes = {};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[{
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,[{
 		type: "text",
 		text: value
 	}]);

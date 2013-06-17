@@ -19,7 +19,7 @@ var ElementWidget = function(renderer) {
 	this.renderer = renderer;
 	this.tag = this.renderer.parseTreeNode.tag;
 	this.attributes = this.renderer.attributes;
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.renderer.parseTreeNode.children);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,this.renderer.parseTreeNode.children);
 	this.events = this.renderer.parseTreeNode.events;
 };
 
@@ -40,22 +40,35 @@ ElementWidget.prototype.refreshInDom = function(changedAttributes,changedTiddler
 /*
 Element renderer
 */
-var ElementRenderer = function(renderTree,renderContext,parseTreeNode) {
+var ElementRenderer = function(renderTree,parentRenderer,parseTreeNode) {
 	// Store state information
 	this.renderTree = renderTree;
-	this.renderContext = renderContext;
+	this.parentRenderer = parentRenderer;
 	this.parseTreeNode = parseTreeNode;
 	// Initialise widget classes
 	if(!this.widgetClasses) {
 		ElementRenderer.prototype.widgetClasses = $tw.modules.applyMethods("widget");
 	}
+	// Select the namespace for the tag
+	var tagNameSpaces = {
+		svg: "http://www.w3.org/2000/svg"
+	};
+	this.namespace = tagNameSpaces[this.parseTreeNode.tag];
+	if(this.namespace) {
+		this.context = this.context || {};
+		this.context.namespace = this.namespace;
+	} else {
+		this.namespace = this.renderTree.getContextVariable(this.parentRenderer,"namespace","http://www.w3.org/1999/xhtml");
+	}
+	// Get the context tiddler title
+	this.tiddlerTitle = this.renderTree.getContextVariable(this.parentRenderer,"tiddlerTitle");
 	// Compute our dependencies
 	this.dependencies = {};
 	var self = this;
 	$tw.utils.each(this.parseTreeNode.attributes,function(attribute,name) {
 		if(attribute.type === "indirect") {
 			var tr = $tw.utils.parseTextReference(attribute.textReference);
-			self.dependencies[tr.title ? tr.title : renderContext.tiddlerTitle] = true;
+			self.dependencies[tr.title ? tr.title : self.tiddlerTitle] = true;
 		}
 	});
 	// Compute our attributes
@@ -86,7 +99,7 @@ ElementRenderer.prototype.computeAttributes = function() {
 	var self = this;
 	$tw.utils.each(this.parseTreeNode.attributes,function(attribute,name) {
 		if(attribute.type === "indirect") {
-			var value = self.renderTree.wiki.getTextReference(attribute.textReference,"",self.renderContext.tiddlerTitle);
+			var value = self.renderTree.wiki.getTextReference(attribute.textReference,"",self.tiddlerTitle);
 			if(self.attributes[name] !== value) {
 				self.attributes[name] = value;
 				changedAttributes[name] = true;
@@ -113,53 +126,11 @@ ElementRenderer.prototype.getAttribute = function(name,defaultValue) {
 	}
 };
 
-ElementRenderer.prototype.render = function(type) {
-	var isHtml = type === "text/html",
-		output = [],attr,a,v;
-	if(isHtml) {
-		output.push("<",this.widget.tag);
-		if(this.widget.attributes) {
-			attr = [];
-			for(a in this.widget.attributes) {
-				attr.push(a);
-			}
-			attr.sort();
-			for(a=0; a<attr.length; a++) {
-				v = this.widget.attributes[attr[a]];
-				if(v !== undefined) {
-					if($tw.utils.isArray(v)) {
-						v = v.join(" ");
-					} else if(typeof v === "object") {
-						var s = [];
-						for(var p in v) {
-							s.push(p + ":" + v[p] + ";");
-						}
-						v = s.join("");
-					}
-					output.push(" ",attr[a],"='",$tw.utils.htmlEncode(v),"'");
-				}
-			}
-		}
-		output.push(">\n");
-	}
-	if($tw.config.htmlVoidElements.indexOf(this.widget.tag) === -1) {
-		$tw.utils.each(this.widget.children,function(node) {
-			if(node.render) {
-				output.push(node.render(type));
-			}
-		});
-		if(isHtml) {
-			output.push("</",this.widget.tag,">");
-		}
-	}
-	return output.join("");
-};
-
 ElementRenderer.prototype.renderInDom = function() {
 	// Check if our widget is providing an element
 	if(this.widget.tag) {
 		// Create the element
-		this.domNode = document.createElement(this.widget.tag);
+		this.domNode = this.renderTree.document.createElementNS(this.namespace,this.widget.tag);
 		// Assign any specified event handlers
 		$tw.utils.addEventListeners(this.domNode,this.widget.events);
 		// Assign the attributes
@@ -171,8 +142,8 @@ ElementRenderer.prototype.renderInDom = function() {
 				self.domNode.appendChild(node.renderInDom());
 			}
 		});
-		// Call postRenderInDom if the widget provides it
-		if(this.widget.postRenderInDom) {
+		// Call postRenderInDom if the widget provides it and we're in the browser
+		if($tw.browser && this.widget.postRenderInDom) {
 			this.widget.postRenderInDom();
 		}
 		// Return the dom node
@@ -194,7 +165,11 @@ ElementRenderer.prototype.assignAttributes = function() {
 					self.domNode.style[$tw.utils.unHyphenateCss(p)] = v[p];
 				}
 			} else {
-				self.domNode.setAttribute(a,v);
+				// Setting certain attributes can cause a DOM error (eg xmlns on the svg element)
+				try {
+					self.domNode.setAttributeNS(null,a,v);
+				} catch(e) {
+				}
 			}
 		}
 	});
@@ -219,68 +194,6 @@ ElementRenderer.prototype.refreshInDom = function(changedTiddlers) {
 			}
 		});
 	}
-};
-
-ElementRenderer.prototype.getContextTiddlerTitle = function() {
-	var context = this.renderContext;
-	while(context) {
-		if($tw.utils.hop(context,"tiddlerTitle")) {
-			return context.tiddlerTitle;
-		}
-		context = context.parentContext;
-	}
-	return undefined;
-};
-
-/*
-Check for render context recursion by returning true if the members of a proposed new render context are already present in the render context chain
-*/
-ElementRenderer.prototype.checkContextRecursion = function(newRenderContext) {
-	var context = this.renderContext;
-	while(context) {
-		var match = true;
-		for(var member in newRenderContext) {
-			if($tw.utils.hop(newRenderContext,member)) {
-				if(newRenderContext[member] && newRenderContext[member] !== context[member]) {
-					match = false;
-				}
-			}
-		}
-		if(match) {
-			return true;
-		}
-		context = context.parentContext;
-	}
-	return false;
-};
-
-ElementRenderer.prototype.getContextScopeId = function() {
-	var guidBits = [],
-		context = this.renderContext;
-	while(context) {
-		$tw.utils.each(context,function(field,name) {
-			if(name !== "parentContext") {
-				guidBits.push(name + ":" + field + ";");
-			}
-		});
-		guidBits.push("-");
-		context = context.parentContext;
-	}
-	return guidBits.join("");
-};
-
-/*
-Find a named macro definition
-*/
-ElementRenderer.prototype.findMacroDefinition = function(name) {
-	var context = this.renderContext;
-	while(context) {
-		if(context.macroDefinitions && context.macroDefinitions[name]) {
-			return context.macroDefinitions[name];
-		}
-		context = context.parentContext;
-	}
-	return undefined;
 };
 
 exports.element = ElementRenderer

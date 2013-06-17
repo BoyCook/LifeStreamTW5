@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/version.js
+title: $:/core/modules/widgets/version.js
 type: application/javascript
 module-type: widget
 
@@ -23,7 +23,7 @@ VersionWidget.prototype.generate = function() {
 	// Set the element
 	this.tag = "span";
 	this.attributes = {};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[{
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,[{
 		type: "text",
 		text: $tw.version
 	}]);

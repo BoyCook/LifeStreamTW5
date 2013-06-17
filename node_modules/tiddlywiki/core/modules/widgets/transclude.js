@@ -54,17 +54,13 @@ var TranscludeWidget = function(renderer) {
 };
 
 TranscludeWidget.prototype.generate = function() {
-	var tr, templateParseTree, templateTiddler;
+	var self = this,
+		tr, templateParseTree, templateTiddler;
 	// Get the render target details
-	this.targetTitle = this.renderer.getAttribute("target",this.renderer.getContextTiddlerTitle());
+	this.targetTitle = this.renderer.getAttribute("target",this.renderer.tiddlerTitle);
 	this.targetField = this.renderer.getAttribute("field");
 	this.targetIndex = this.renderer.getAttribute("index");
-    var parserType = this.renderer.getAttribute("parserType");
-
-    if ((typeof parserType === 'undefined')) {
-        parserType = "text/vnd.tiddlywiki";
-    }
-
+	this.currentField = this.renderer.getAttribute("currentField");
 	// Get the render tree for the template
 	this.templateTitle = undefined;
 	if(this.renderer.parseTreeNode.children && this.renderer.parseTreeNode.children.length > 0) {
@@ -73,7 +69,7 @@ TranscludeWidget.prototype.generate = function() {
 	} else {
 		this.templateTitle = this.renderer.getAttribute("template",this.targetTitle);
 		// Check for recursion
-		if(this.renderer.checkContextRecursion({
+		if(this.renderer.renderTree.checkContextRecursion(this.renderer.parentRenderer,{
 				tiddlerTitle: this.targetTitle,
 				templateTitle: this.templateTitle
 			})) {
@@ -90,10 +86,10 @@ TranscludeWidget.prototype.generate = function() {
 					if(text === undefined) {
 						text = "";
 					}
-                    parser = this.renderer.renderTree.wiki.parseText(parserType,text,{parseAsInline: !this.renderer.parseTreeNode.isBlock});
+					parser = this.renderer.renderTree.wiki.parseText("text/vnd.tiddlywiki",text,{parseAsInline: !this.renderer.parseTreeNode.isBlock});
 				} else if(this.targetIndex) {
 					text = this.renderer.renderTree.wiki.extractTiddlerDataItem(this.targetTitle,this.targetIndex,"");
-					parser = this.renderer.renderTree.wiki.parseText(parserType,text);
+					parser = this.renderer.renderTree.wiki.parseText("text/vnd.tiddlywiki",text);
 				}
 			}
 			templateParseTree = parser ? parser.tree : [];
@@ -107,12 +103,28 @@ TranscludeWidget.prototype.generate = function() {
 	if(!this.renderer.renderTree.wiki.tiddlerExists(this.targetTitle) && !this.renderer.renderTree.wiki.isShadowTiddler(this.targetTitle)) {
 		$tw.utils.pushTop(classes,"tw-tiddler-missing");
 	}
-	// Create the renderers for the wrapper and the children
-	var newRenderContext = {
+	// Save the context for this renderer node
+	this.renderer.context = {
 		tiddlerTitle: this.targetTitle,
-		templateTitle: this.templateTitle,
-		parentContext: this.renderer.renderContext
+		templateTitle: this.templateTitle
 	};
+	// Initialise events
+	this.events = [];
+	// If a current field is specified
+	if(this.currentField) {
+		// Record the current field in the render context
+		this.renderer.context.field = this.currentField;
+		// Add an event handler to record the current field
+		this.events.push({name: "tw-remove-field", handlerFunction: function(event) {
+			event.currentField = self.currentField;
+			return true;
+		}});
+	}
+	// Trap and update tag modification events
+	this.events.push({name: "tw-remove-tag", handlerFunction: function(event) {
+		event.currentTag = self.targetTitle;
+		return true;
+	}});
 	// Set the element
 	this.tag = this.renderer.parseTreeNode.isBlock ? "div" : "span";
 	this.attributes = {};
@@ -125,7 +137,7 @@ TranscludeWidget.prototype.generate = function() {
 	if(this.renderer.hasAttribute("tooltip")) {
 		this.attributes.title = this.renderer.getAttribute("tooltip");
 	}
-	this.children = this.renderer.renderTree.createRenderers(newRenderContext,templateParseTree);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,templateParseTree);
 };
 
 TranscludeWidget.prototype.refreshInDom = function(changedAttributes,changedTiddlers) {

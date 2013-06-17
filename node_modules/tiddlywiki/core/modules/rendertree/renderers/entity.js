@@ -15,19 +15,15 @@ Entity renderer
 /*
 Entity renderer
 */
-var EntityRenderer = function(renderTree,renderContext,parseTreeNode) {
+var EntityRenderer = function(renderTree,parentRenderer,parseTreeNode) {
 	// Store state information
 	this.renderTree = renderTree;
-	this.renderContext = renderContext;
+	this.parentRenderer = parentRenderer;
 	this.parseTreeNode = parseTreeNode;
 };
 
-EntityRenderer.prototype.render = function(type) {
-	return type === "text/html" ? this.parseTreeNode.entity : $tw.utils.entityDecode(this.parseTreeNode.entity);
-};
-
 EntityRenderer.prototype.renderInDom = function() {
-	return document.createTextNode($tw.utils.entityDecode(this.parseTreeNode.entity));
+	return this.renderTree.document.createTextNode($tw.utils.entityDecode(this.parseTreeNode.entity));
 };
 
 exports.entity = EntityRenderer

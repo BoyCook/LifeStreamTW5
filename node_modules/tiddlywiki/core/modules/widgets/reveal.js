@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/reveal.js
+title: $:/core/modules/widgets/reveal.js
 type: application/javascript
 module-type: widget
 
@@ -28,10 +28,11 @@ RevealWidget.prototype.generate = function() {
 	this["default"] = this.renderer.getAttribute("default");
 	this.qualifyTiddlerTitles = this.renderer.getAttribute("qualifyTiddlerTitles");
 	this["class"] = this.renderer.getAttribute("class");
+	this.animate = this.renderer.getAttribute("animate","no");
 	// Compute the title of the state tiddler and read it
 	this.stateTitle = this.state;
 	if(this.qualifyTiddlerTitles) {
-		this.stateTitle =  this.stateTitle + "-" + this.renderer.getContextScopeId();
+		this.stateTitle =  this.stateTitle + "-" + this.renderer.renderTree.getContextScopeId(this.renderer.parentRenderer);
 	}
 	this.readState();
 	// Set up the element attributes
@@ -39,6 +40,9 @@ RevealWidget.prototype.generate = function() {
 		styles = [];
 	if(this["class"]) {
 		$tw.utils.pushTop(classes,this["class"]);
+	}
+	if(this.isOpen) {
+		$tw.utils.pushTop(classes,"tw-reveal-open");
 	}
 	switch(this.type) {
 		case "popup":
@@ -53,7 +57,7 @@ RevealWidget.prototype.generate = function() {
 		"class": classes.join(" "),
 		style: styles.join("")
 	};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.isOpen ? this.renderer.parseTreeNode.children : []);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,this.isOpen ? this.renderer.parseTreeNode.children : []);
 	this.events = [{name: "click", handlerObject: this, handlerMethod: "handleClickEvent"}];
 };
 
@@ -63,7 +67,7 @@ Read the state tiddler
 RevealWidget.prototype.readState = function() {
 	// Read the information from the state tiddler
 	if(this.stateTitle) {
-		var state = this.renderer.renderTree.wiki.getTextReference(this.stateTitle,this["default"],this.renderer.getContextTiddlerTitle());
+		var state = this.renderer.renderTree.wiki.getTextReference(this.stateTitle,this["default"],this.renderer.tiddlerTitle);
 		switch(this.type) {
 			case "popup":
 				this.readPopupState(state);
@@ -116,6 +120,7 @@ RevealWidget.prototype.handleClickEvent = function(event) {
 };
 
 RevealWidget.prototype.refreshInDom = function(changedAttributes,changedTiddlers) {
+	var self = this;
 	// Check if any of our attributes have changed, or if a tiddler we're interested in has changed
 	if(changedAttributes.state || changedAttributes.type || changedAttributes.text || changedAttributes.position || changedAttributes["default"] || changedAttributes.qualifyTiddlerTitles || changedAttributes["class"]) {
 		// Regenerate and rerender the widget and replace the existing DOM node
@@ -126,10 +131,11 @@ RevealWidget.prototype.refreshInDom = function(changedAttributes,changedTiddlers
 	} else {
 		var needChildrenRefresh = true; // Avoid refreshing the children nodes if we don't need to
 		// Get the open state
+		var previousState = this.isOpen
 		this.readState();
 		// Construct the child nodes if  required
 		if(this.isOpen && this.children.length === 0) {
-			this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,this.renderer.parseTreeNode.children);
+			this.children = this.renderer.renderTree.createRenderers(this.renderer,this.renderer.parseTreeNode.children);
 			var parentNode = this.renderer.domNode;
 			$tw.utils.each(this.children,function(child) {
 				parentNode.appendChild(child.renderInDom());
@@ -144,8 +150,23 @@ RevealWidget.prototype.refreshInDom = function(changedAttributes,changedTiddlers
 				}
 			});
 		}
-		// Set the visibility of the children
-		this.renderer.domNode.style.display = this.isOpen ? (this.renderer.parseTreeNode.isBlock ? "block" : "inline") : "none";
+		// Animate the opening or closing
+		if(this.isOpen !== previousState) {
+			if(this.animate !== "no") {
+				if(this.isOpen) {
+					this.renderer.domNode.style.display = this.renderer.parseTreeNode.isBlock ? "block" : "inline";
+					$tw.anim.perform("open",this.renderer.domNode);
+				} else {
+					$tw.anim.perform("close",this.renderer.domNode,{callback: function() {
+						self.renderer.domNode.style.display = "none";
+					}});
+				}
+			} else {
+				this.renderer.domNode.style.display = this.isOpen ? (this.renderer.parseTreeNode.isBlock ? "block" : "inline") : "none";
+			}
+		}
+		// Add or remove the tw-reveal-open class
+		$tw.utils.toggleClass(this.renderer.domNode,"tw-reveal-open",this.isOpen);
 	}
 	// Position the content if required
 	if(this.isOpen) {

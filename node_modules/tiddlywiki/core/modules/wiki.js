@@ -37,7 +37,7 @@ exports.getTextReference = function(textRef,defaultText,currTiddlerTitle) {
 	if(tr.field) {
 		var tiddler = this.getTiddler(title);
 		if(tiddler && $tw.utils.hop(tiddler.fields,tr.field)) {
-			return tiddler.fields[tr.field];
+			return tiddler.getFieldString(tr.field);
 		} else {
 			return defaultText;
 		}
@@ -359,7 +359,7 @@ exports.getMissingTitles = function() {
 	this.forEachTiddler(function(title,tiddler) {
 		var links = self.getTiddlerLinks(title);
 		$tw.utils.each(links,function(link) {
-			if(!self.tiddlerExists(link) && missing.indexOf(link) === -1) {
+			if((!self.tiddlerExists(link) && !self.isShadowTiddler(link)) && missing.indexOf(link) === -1) {
 				missing.push(link);
 			}
 		});
@@ -621,11 +621,13 @@ Parse text in a specified format and render it into another format
 	textType: content type of the input text
 	text: input text
 */
-exports.renderText = function(outputType,textType,text) {
+exports.renderText = function(outputType,textType,text,context) {
 	var parser = this.parseText(textType,text),
-		renderTree = new $tw.WikiRenderTree(parser,{wiki: this});
+		renderTree = new $tw.WikiRenderTree(parser,{wiki: this, context: context, document: $tw.document});
 	renderTree.execute();
-	return renderTree.render(outputType);
+	var container = $tw.document.createElement("div");
+	renderTree.renderInDom(container)
+	return outputType === "text/html" ? container.innerHTML : container.textContent;
 };
 
 /*
@@ -633,11 +635,13 @@ Parse text from a tiddler and render it into another format
 	outputType: content type for the output
 	title: title of the tiddler to be rendered
 */
-exports.renderTiddler = function(outputType,title,renderContext) {
+exports.renderTiddler = function(outputType,title,context) {
 	var parser = this.parseTiddler(title),
-		renderTree = new $tw.WikiRenderTree(parser,{wiki: this});
-	renderTree.execute(renderContext);
-	return renderTree.render(outputType);
+		renderTree = new $tw.WikiRenderTree(parser,{wiki: this, context: context, document: $tw.document});
+	renderTree.execute();
+	var container = $tw.document.createElement("div");
+	renderTree.renderInDom(container)
+	return outputType === "text/html" ? container.innerHTML : container.textContent;
 };
 
 /*
@@ -743,7 +747,9 @@ exports.saveWiki = function(options) {
 	var template = options.template || "$:/core/templates/tiddlywiki5.template.html",
 		downloadType = options.downloadType || "text/plain";
 	var text = this.renderTiddler(downloadType,template);
-	this.callSaver("save",text);
+	this.callSaver("save",text,function(err) {
+		$tw.notifier.display("$:/messages/Saved");
+	});
 };
 
 /*

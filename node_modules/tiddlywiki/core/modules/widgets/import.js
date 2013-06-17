@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widget/import.js
+title: $:/core/modules/widgets/import.js
 type: application/javascript
 module-type: widget
 
@@ -60,7 +60,7 @@ ImportWidget.prototype.generate = function() {
 	this.attributes = {
 		"class": classes.join(" ")
 	};
-	this.children = this.renderer.renderTree.createRenderers(this.renderer.renderContext,[fileInput,container]);
+	this.children = this.renderer.renderTree.createRenderers(this.renderer,[fileInput,container]);
 };
 
 ImportWidget.prototype.handleChangeEvent  = function(event) {
@@ -222,7 +222,7 @@ ImportWidget.prototype.importFiles = function(files) {
 					$tw.utils.each(tiddlers,function(tiddlerFields) {
 						tiddlerFields.title = self.generateTitle(tiddlerFields.title);
 						self.storeTiddler(tiddlerFields);
-						self.openTiddler(title);
+						self.openTiddler(tiddlerFields.title);
 					});
 				}
 			}

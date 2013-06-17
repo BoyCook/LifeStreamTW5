@@ -20,7 +20,7 @@ function StylesheetManager(wiki) {
 	this.stylesheets = {}; // Hashmap of currently rendered stylesheets
 	// Apply initial stylesheets
 	var self = this,
-		stylesheetTiddlers = this.wiki.filterTiddlers("[is[shadow]!has[draft.of]tag[" + STYLESHEET_TAG + "]]");
+		stylesheetTiddlers = this.wiki.filterTiddlers("[is[shadow]!has[draft.of]tag[" + STYLESHEET_TAG + "]] [!is[shadow]!has[draft.of]tag[" + STYLESHEET_TAG + "]]");
 	$tw.utils.each(stylesheetTiddlers,function(title,index) {
 		self.addStylesheet(title);
 	});
@@ -35,9 +35,11 @@ StylesheetManager.prototype.addStylesheet = function(title) {
 	this.stylesheets[title] = true;
 	// Parse the tiddler and render as plain text
 	var parser = this.wiki.parseTiddler(title),
-		renderTree = new $tw.WikiRenderTree(parser,{wiki: this.wiki});
-	renderTree.execute({tiddlerTitle: title});
-	var text = renderTree.render("text/plain");
+		renderTree = new $tw.WikiRenderTree(parser,{wiki: this.wiki, context: {tiddlerTitle: title}, document: $tw.document});
+	renderTree.execute();
+	var container = $tw.document.createElement("div");
+	renderTree.renderInDom(container);
+	var text = container.textContent;
 	// Create a style element and put it in the document
 	var styleNode = document.createElement("style");
 	styleNode.setAttribute("type","text/css");

@@ -1,4 +1,4 @@
-title: $:/core/styles/base
+title: $:/themes/tiddlywiki/snowwhite/base
 tags: [[$:/tags/stylesheet]]
 
 \rules only filteredtranscludeinline transcludeinline macrodef macrocallinline
@@ -16,6 +16,20 @@ tags: [[$:/tags/stylesheet]]
           box-shadow: $shadow$;
 ```
 \end
+\define filter(filter)
+```
+  -webkit-filter: $filter$;
+     -moz-filter: $filter$;
+          filter: $filter$;
+```
+\end
+\define transition(transition)
+```
+  -webkit-transition: $transition$;
+     -moz-transition: $transition$;
+          transition: $transition$;
+```
+\end
 \define background-linear-gradient(gradient)
 ```
 background-image: linear-gradient($gradient$);
@@ -30,7 +44,7 @@ background-image: -ms-linear-gradient($gradient$);
 ** Start with the normalize CSS reset, and then belay some of its effects
 */
 
-{{$:/core/styles/reset}}
+{{$:/themes/tiddlywiki/snowwhite/reset}}
 
 *, input[type="search"] {
 	box-sizing: border-box;
@@ -47,10 +61,15 @@ html {
 }
 
 body {
-	font-size: {{$:/core/styles/metrics##fontsize}};
-	line-height: {{$:/core/styles/metrics##lineheight}};
-	background-color: {{$:/core/styles/colourmappings##pagebackground}};
+	font-size: {{$:/themes/tiddlywiki/snowwhite/metrics##fontsize}};
+	line-height: {{$:/themes/tiddlywiki/snowwhite/metrics##lineheight}};
+	color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##foreground}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##pagebackground}};
 	word-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1em;
 }
 
 code, pre {
@@ -83,13 +102,12 @@ table {
 }
 
 table th, table td {
-	text-align: left;
 	padding: 0 0.5em 0 0.5em;
 	border-top: 1px solid #ddd;
 	border-left: 1px solid #ddd;
 }
 
-img, canvas, embed {
+.tw-tiddler-frame img, .tw-tiddler-frame svg, .tw-tiddler-frame canvas, .tw-tiddler-frame embed {
 	max-width: 100%;
 }
 
@@ -106,7 +124,7 @@ a.tw-tiddlylink {
 	text-decoration: none;
 	font-style: normal;
 	font-weight: normal;
-	color: {{$:/core/styles/colourmappings##linkforeground}};
+	color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##linkforeground}};
 }
 
 .tw-sidebar-lists a.tw-tiddlylink {
@@ -219,16 +237,14 @@ a.tw-tiddlylink-missing {
 
 .tw-tag-label {
 	display: inline-block;
-	padding: 2px 6px;
+	padding: 2px 9px;
 	font-size: 11.844px;
-	font-weight: bold;
 	line-height: 14px;
-	color: #ffffff;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.44);
+	color: #000;
 	white-space: nowrap;
 	vertical-align: baseline;
-	background-color: #999999;
-	<<border-radius 5px>>
+	background-color: #FFD34D;
+	<<border-radius 8px>>
 }
 
 /*
@@ -236,6 +252,7 @@ a.tw-tiddlylink-missing {
 */
 
 .sidebar-header {
+	color: #acacac;
 	text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
 }
 
@@ -244,7 +261,7 @@ a.tw-tiddlylink-missing {
 	margin-bottom: 0.2em;
 }
 
-.tw-search a img {
+.tw-search a svg {
 	height: 0.75em;
 }
 
@@ -256,13 +273,30 @@ a.tw-tiddlylink-missing {
 	margin-top: 1em;
 }
 
-.tw-page-controls img {
+.tw-page-controls a.tw-tiddlylink:hover {
+	text-decoration: none;
+}
+
+.tw-page-controls svg {
 	height: 1.5em;
+	min-width: 1px;
 	padding-right: 0.5em;
+	fill: #fff;
+	<<filter "drop-shadow(1px 1px 2px rgba(0,0,0,0.15))">>
+	<<transition "fill 150ms ease-in-out">>
+}
+
+.tw-page-controls svg:hover {
+	fill: #000;
+	<<filter "drop-shadow(1px 1px 2px rgba(255,255,255,0.9))">>
 }
 
 .tw-menu-list-item {
 	white-space: nowrap;
+}
+
+.tw-menu-list-subitem {
+	padding-left: 0.5em;
 }
 
 @media (max-width: 55em) {
@@ -312,7 +346,16 @@ a.tw-tiddlylink-missing {
 .tw-tiddler-frame {
 	position: relative;
 	margin-bottom: 2em;
-	background-color: {{$:/core/styles/colourmappings##tiddlerbackground}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##tiddlerbackground}};
+}
+
+.tw-tiddler-info {
+	overflow: hidden;
+	padding: 1em 3em 1em 3em;
+	background-color: #f8f8f8;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	<<box-shadow "inset 1px 2px 3px rgba(0,0,0,0.1)">>
 }
 
 @media screen {
@@ -325,11 +368,19 @@ a.tw-tiddlylink-missing {
 	.tw-tiddler-frame {
 		padding: 1em 1em 1em 1em;
 	}
+
+	.tw-tiddler-info {
+		margin: 0 -1em 0 -1em;
+	}
 }
 
 @media (min-width: 55em) {
 	.tw-tiddler-frame {
 		padding: 2em 3em 3em 3em;
+	}
+
+	.tw-tiddler-info {
+		margin: 0 -3em 0 -3em;
 	}
 }
 
@@ -338,6 +389,11 @@ a.tw-tiddlylink-missing {
 	font-size: 33px;
 	line-height: 40px;
 	color: #182955;
+}
+
+.tw-subtitle {
+	font-size: 0.9em;
+	color: #c0c0c0;
 }
 
 .tw-tiddler-missing .title {
@@ -354,8 +410,14 @@ a.tw-tiddlylink-missing {
 	vertical-align: baseline;
 }
 
-.tw-tiddler-controls .tw-button img {
+.tw-tiddler-controls svg {
 	height: 0.75em;
+	fill: #ccc;
+	<<transition "fill 150ms ease-in-out">>
+}
+
+.tw-tiddler-controls svg:hover {
+	fill: #888;
 }
 
 @media print {
@@ -376,7 +438,7 @@ a.tw-tiddlylink-missing {
 .tw-tiddler-frame .tw-edit-texteditor input, .tw-tiddler-frame .tw-edit-texteditor textarea {
 	width: 100%;
 	padding: 3px 3px 3px 3px;
-	border: 1px solid #888;
+	border: 1px solid #ccc;
 	line-height: 1.3em;
 	-webkit-appearance: none;
 	margin: 0.25em 0 0.25em 0;
@@ -388,10 +450,133 @@ a.tw-tiddlylink-missing {
 }
 
 canvas.tw-edit-bitmapeditor  {
+	border: 3px dashed #F0F0F0;
 	cursor: crosshair;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
+}
+
+.tw-edit-bitmapeditor-width {
+	display: block;
+}
+
+.tw-edit-bitmapeditor-height {
+	display: block;
+}
+
+/*
+** Tiddler edit mode
+*/
+
+.tw-edit-tags-list {
+	margin: 1em 0 1em 0;
+}
+
+.tw-remove-tag-button {
+	padding-left: 4px;
+}
+
+.tw-tags-autocomplete-wrapper {
+	position: relative;
+}
+
+.tw-tags-autocomplete {
+	position: absolute;
+	min-width: 20em;
+	border: 1px solid {{$:/themes/tiddlywiki/snowwhite/colourmappings##dropdownborder}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##dropdownbackground}};
+	<<border-radius 4px>>
+	<<box-shadow "2px 2px 10px rgba(0, 0, 0, 0.5)">>
+	padding: 0 0 0 0;
+	margin: 0.25em 0 0 0;
+	white-space: nowrap;
+	z-index: 1000;
+}
+
+.tw-tags-autocomplete a {
+	display: block;
+	padding: 0.25em 1em 0.25em 1em;
+}
+
+.tw-tags-autocomplete a:hover {
+	color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##linkbackground}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##linkforeground}};
+	text-decoration: none;
+}
+
+.tw-add-tag {
+	color: #999;
+}
+
+.tw-add-tag svg {
+	height: 1em;
+	fill: #999;
+}
+
+.tw-add-tag-name {
+	display: inline-block;
+	width: 15%;
+}
+
+.tw-tiddler-preview {
+	overflow: auto;
+}
+
+.tw-tiddler-preview-preview {
+	float: right;
+	width: 48%;
+	border: 1px solid #ccc;
+	margin: 4px 3px 3px 3px;
+	padding: 3px 3px 3px 3px;
+}
+
+.tw-tiddler-preview-edit {
+	width: 48%;
+}
+
+.tw-fieldlist > div:nth-child(odd) {
+	background-color: #f0f4f0;
+}
+
+.tw-fieldlist > div:nth-child(even) {
+	background-color: #e0e8e0;
+}
+
+.tw-edit-field-name {
+	display: inline-block;
+	width: 15%;
+	text-align: right;
+}
+
+.tw-edit-field-value {
+	display: inline-block;
+	width: 75%;
+}
+
+.tw-edit-field-remove {
+	display: inline-block;
+	width: 5%;
+}
+
+.tw-edit-field-remove svg {
+	height: 1em;
+	fill: #888;
+	vertical-align: middle;
+}
+
+.tw-edit-field-add {
+	color: #999;
+}
+
+.tw-edit-field-add-name {
+	display: inline-block;
+	width: 15%;
+}
+
+.tw-edit-field-add-button {
+	display: inline-block;
+	width: 10%;
 }
 
 /*
@@ -400,8 +585,8 @@ canvas.tw-edit-bitmapeditor  {
 
 .tw-drop-down {
 	min-width: 20em;
-	border: 1px solid {{$:/core/styles/colourmappings##dropdownborder}};
-	background-color: {{$:/core/styles/colourmappings##dropdownbackground}};
+	border: 1px solid {{$:/themes/tiddlywiki/snowwhite/colourmappings##dropdownborder}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##dropdownbackground}};
 	<<border-radius 4px>>
 	<<box-shadow "2px 2px 10px rgba(0, 0, 0, 0.5)">>
 	padding: 0.5em 0em 0.5em 0em;
@@ -415,8 +600,8 @@ canvas.tw-edit-bitmapeditor  {
 }
 
 .tw-drop-down a:hover {
-	color: {{$:/core/styles/colourmappings##linkbackground}};
-	background-color: {{$:/core/styles/colourmappings##linkforeground}};
+	color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##linkbackground}};
+	background-color: {{$:/themes/tiddlywiki/snowwhite/colourmappings##linkforeground}};
 	text-decoration: none;
 }
 
@@ -436,6 +621,10 @@ canvas.tw-edit-bitmapeditor  {
 /*
 ** Modals
 */
+
+.tw-modal-displayed {
+	-webkit-filter: blur(4px);
+}
 
 .modal-backdrop {
 	position: fixed;
@@ -488,6 +677,25 @@ canvas.tw-edit-bitmapeditor  {
 }
 
 /*
+** Notifications
+*/
+
+.tw-notification {
+	position: fixed;
+	top: 1em;
+	right: 1em;
+	z-index: 1000;
+	max-width: 20em;
+	padding: 0em 1em 0em 1em;
+	background-color: #ffd;
+	border: 1px solid #999;
+	border: 1px solid rgba(0,0,0,.3);
+	<<border-radius 6px>>
+	<<box-shadow "0 3px 7px rgba(0,0,0,0.3)">>
+	text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
+}
+
+/*
 ** Tabs
 */
 
@@ -504,10 +712,10 @@ canvas.tw-edit-bitmapeditor  {
 .tw-tab-buttons button {
 	color: #666;
 	background-color: #ccc;
-	border-left: 1px solid #aaa;
-	border-top: 1px solid #aaa;
-	border-right: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	border-left: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
 	margin-left: 0.25em;
 	margin-right: 0.25em;
 }
@@ -518,7 +726,7 @@ canvas.tw-edit-bitmapeditor  {
 }
 
 .tw-tab-divider {
-	border-top: 1px solid #aaa;
+	border-top: 1px solid #bbb;
 }
 
 .tw-tab-content {
@@ -528,7 +736,7 @@ canvas.tw-edit-bitmapeditor  {
 .tw-sidebar-tab-divider.tw-tab-divider {
 	border-top: none;
 	height: 1px;
-	<<background-linear-gradient "left, rgb(160,160,160) 0%, rgb(236,236,236) 250px">>
+	<<background-linear-gradient "left, rgb(176,176,176) 0%, rgb(236,236,236) 250px">>
 }
 
 .tw-more-sidebar.tw-tab-set {
@@ -570,3 +778,16 @@ canvas.tw-edit-bitmapeditor  {
 	<<background-linear-gradient "left, rgb(236,236,236) 0%, rgb(255,255,255) 100%">>
 	border: none;
 }
+
+/*
+** Alerts
+*/
+
+.tw-alert {
+	<<border-radius 6px>>
+	margin: 0.5em 0.5em 0.5em 0.5em;
+	padding: 1em 1em 1em 1em;
+	border: 3px solid #DBB727;
+	background-color: rgb(250, 210, 50);
+}
+

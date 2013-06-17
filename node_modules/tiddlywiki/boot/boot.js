@@ -1,5 +1,5 @@
 /*\
-title: $:/core/boot.js
+title: $:/boot/boot.js
 type: application/javascript
 
 The main boot kernel for TiddlyWiki. This single file creates a barebones TW environment that is just sufficient to bootstrap the modules containing the main logic of the application.
@@ -66,19 +66,56 @@ $tw.utils.log = function(/* args */) {
 Display an error and exit
 */
 $tw.utils.error = function(err) {
+	// Prepare the error message
+	var errHeading = "Internal JavaScript Error",
+		promptMsg = "Well, this is embarrassing. It is recommended that you restart TiddlyWiki by refreshing your browser";
+	// Log the error to the console
 	console.error(err);
 	if($tw.browser) {
+		// Display an error message to the user
+		var form = document.createElement("form"),
+			heading = document.createElement("h1"),
+			prompt = document.createElement("div"),
+			message = document.createElement("div"),
+			button = document.createElement("button");
+		heading.appendChild(document.createTextNode(errHeading));
+		prompt.appendChild(document.createTextNode(promptMsg));
+		prompt.className = "tw-error-prompt";
+		message.appendChild(document.createTextNode(err));
+		button.appendChild(document.createTextNode("close"));
+		form.className = "tw-error-form";
+		form.appendChild(heading);
+		form.appendChild(prompt);
+		form.appendChild(message);
+		form.appendChild(button);
+		document.body.insertBefore(form,document.body.firstChild);
+		form.addEventListener("submit",function(event) {
+			document.body.removeChild(form);
+			event.preventDefault();
+			return false;
+		},true);
 		return null;
 	} else {
+		// Exit if we're under node.js
 		process.exit(1);
 	}
 };
 
 /*
+Use our custom error handler if we're in the browser
+*/
+if($tw.browser) {
+	window.onerror = function(errorMsg,url,lineNumber) {
+		$tw.utils.error(errorMsg);
+		return false;
+	};
+}
+
+/*
 Check if an object has a property
 */
 $tw.utils.hop = function(object,property) {
-	return Object.prototype.hasOwnProperty.call(object,property);
+	return object ? Object.prototype.hasOwnProperty.call(object,property) : false;
 };
 
 /*
@@ -384,7 +421,7 @@ $tw.utils.PasswordPrompt.prototype.createPrompt = function(options) {
 			// Clear the password if the callback returned false
 			$tw.utils.each(form.elements,function(element) {
 				if(element.name === "password") {
-					form.elements[t].value = "";
+					element.value = "";
 				}
 			});
 		}
@@ -569,7 +606,7 @@ $tw.Tiddler = function(/* [fields,] fields */) {
 			} else {
 				// Parse the field with the associated field module (if any)
 				var fieldModule = $tw.Tiddler.fieldModules[t];
-				if(fieldModule) {
+				if(fieldModule && fieldModule.parse) {
 					this.fields[t] = fieldModule.parse.call(this,src[t]);
 				} else {
 					this.fields[t] = src[t];
@@ -595,6 +632,10 @@ $tw.modules.define("$:/boot/tiddlerfields/created","tiddlerfield",{
 	name: "created",
 	parse: $tw.utils.parseDate,
 	stringify: $tw.utils.stringifyDate
+});
+$tw.modules.define("$:/boot/tiddlerfields/color","tiddlerfield",{
+	name: "color",
+	editType: "color"
 });
 $tw.modules.define("$:/boot/tiddlerfields/tags","tiddlerfield",{
 	name: "tags",
@@ -1224,7 +1265,7 @@ $tw.boot.startup = function() {
 	$tw.utils.registerFileType("text/vnd.tiddlywiki","utf8",".tid");
 	$tw.utils.registerFileType("application/x-tiddler","utf8",".tid");
 	$tw.utils.registerFileType("application/x-tiddler-html-div","utf8",".tiddler");
-	$tw.utils.registerFileType("application/vnd.tiddlywiki2-recipe","utf8",".recipe");
+	$tw.utils.registerFileType("text/vnd.tiddlywiki2-recipe","utf8",".recipe");
 	$tw.utils.registerFileType("text/plain","utf8",".txt");
 	$tw.utils.registerFileType("text/css","utf8",".css");
 	$tw.utils.registerFileType("text/html","utf8",".html");
@@ -1275,5 +1316,6 @@ $tw.boot.decryptEncryptedTiddlers(function() {
 	// Startup
 	$tw.boot.startup();
 });
+
 
 })();
