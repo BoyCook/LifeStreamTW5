@@ -25,3 +25,12 @@ body {
     float: left;
     margin: 1px;
 }
+
+.hide {
+    display:none;
+}
+
+.show {
+    display:block;
+}
+

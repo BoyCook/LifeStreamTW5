@@ -1,13 +1,8 @@
 /* For display ease */
-#content {
-    background: #f8f8f8;
-}
 #header, #content {
     margin-bottom: 5px;
 }
-#pagecontent {
-    border: solid 1px #ccc;
-}
+
 #header, #content {
     border-bottom: solid 1px #ccc;
 }
@@ -24,6 +19,7 @@
 }
 #content {
     width: 960px;
+    min-height: 400px;        
     float: left;
 }
 #footer {
@@ -38,6 +34,7 @@
     }
     #content {
         width: 100%;
+        min-height: 400px;        
     }
 }
 
@@ -46,12 +43,18 @@
     #header {
         height: 80px;
     }
+    #content {
+        min-height: 200px;        
+    }    
 }
 
 /* for 480px or less */
 @media screen and (max-width: 480px) {
     #header {
         height: 100px;
+    }
+    #content {
+        min-height: 100px;        
     }
     h1 {
         font-size: 24px;
