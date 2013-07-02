@@ -1,0 +1,52 @@
+/* For display ease */
+#content {
+    background: #f8f8f8;
+}
+#header, #content {
+    margin-bottom: 5px;
+}
+#pagecontent {
+    border: solid 1px #ccc;
+}
+#header, #content {
+    border-bottom: solid 1px #ccc;
+}
+
+/* Page structure */
+
+#pagecontent {
+    padding: 5px;
+    width: 960px;
+    margin: 20px auto;
+}
+#header {
+    height: 100px;
+}
+#content {
+    width: 960px;
+    float: left;
+}
+#footer {
+    clear: both;
+}
+
+/* MEDIA QUERIES */
+/* for 980px or less */
+@media screen and (max-width: 980px) {
+    #pagecontent {
+        width: 94%;
+    }
+    #content {
+        width: 100%;
+    }
+}
+
+/* for 480px or less */
+@media screen and (max-width: 480px) {
+    #header {
+        height: auto;
+    }
+    h1 {
+        font-size: 24px;
+    }
+}

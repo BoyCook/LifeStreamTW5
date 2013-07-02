@@ -1,0 +1,27 @@
+body {
+    /*font-family: Merriweather, Garamond, Georgia, serif*/
+    font-family: "freight-sans-pro",sans-serif
+}
+
+.navigation {
+	margin-left:auto;
+	margin-right:auto;	
+}
+
+.navigation ul {
+	text-align: center;
+    border:0;
+    outline:0;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+.navigation, .navigation ul {
+	list-style: none;	
+	width: 40%;
+}
+
+.navigation > li {
+    float: left;
+    margin: 1px;
+}
