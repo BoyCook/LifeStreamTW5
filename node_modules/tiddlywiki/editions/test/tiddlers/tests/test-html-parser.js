@@ -99,22 +99,22 @@ describe("HTML tag new parser tests", function() {
 			null
 		);
 		expect(parser.parseMacroInvocation("<<mymacro>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [  ], name : 'mymacro', end : 11 }
+			{ type : 'macrocall', start : 0, params : [  ], name : 'mymacro', end : 11 }
 		);
 		expect(parser.parseMacroInvocation("<<mymacro one two three>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [ { type : 'macro-parameter', start : 9, value : 'one', end : 13 }, { type : 'macro-parameter', start : 13, value : 'two', end : 17 }, { type : 'macro-parameter', start : 17, value : 'three', end : 23 } ], name : 'mymacro', end : 25 }
+			{ type : 'macrocall', start : 0, params : [ { type : 'macro-parameter', start : 9, value : 'one', end : 13 }, { type : 'macro-parameter', start : 13, value : 'two', end : 17 }, { type : 'macro-parameter', start : 17, value : 'three', end : 23 } ], name : 'mymacro', end : 25 }
 		);
 		expect(parser.parseMacroInvocation("<<mymacro p:one q:two three>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [ { type : 'macro-parameter', start : 9, value : 'one', name : 'p', end : 15 }, { type : 'macro-parameter', start : 15, value : 'two', name : 'q', end : 21 }, { type : 'macro-parameter', start : 21, value : 'three', end : 27 } ], name : 'mymacro', end : 29 }
+			{ type : 'macrocall', start : 0, params : [ { type : 'macro-parameter', start : 9, value : 'one', name : 'p', end : 15 }, { type : 'macro-parameter', start : 15, value : 'two', name : 'q', end : 21 }, { type : 'macro-parameter', start : 21, value : 'three', end : 27 } ], name : 'mymacro', end : 29 }
 		);
 		expect(parser.parseMacroInvocation("<<mymacro 'one two three'>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [ { type : 'macro-parameter', start : 9, value : 'one two three', end : 25 } ], name : 'mymacro', end : 27 } 
+			{ type : 'macrocall', start : 0, params : [ { type : 'macro-parameter', start : 9, value : 'one two three', end : 25 } ], name : 'mymacro', end : 27 } 
 		);
 		expect(parser.parseMacroInvocation("<<mymacro r:'one two three'>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [ { type : 'macro-parameter', start : 9, value : 'one two three', name : 'r', end : 27 } ], name : 'mymacro', end : 29 } 
+			{ type : 'macrocall', start : 0, params : [ { type : 'macro-parameter', start : 9, value : 'one two three', name : 'r', end : 27 } ], name : 'mymacro', end : 29 } 
 		);
 		expect(parser.parseMacroInvocation("<<myMacro one:two three:'four and five'>>",0)).toEqual(
-			{ type : 'macro-invocation', start : 0, parameters : [ { type : 'macro-parameter', start : 9, value : 'two', name : 'one', end : 17 }, { type : 'macro-parameter', start : 17, value : 'four and five', name : 'three', end : 39 } ], name : 'myMacro', end : 41 } 
+			{ type : 'macrocall', start : 0, params : [ { type : 'macro-parameter', start : 9, value : 'two', name : 'one', end : 17 }, { type : 'macro-parameter', start : 17, value : 'four and five', name : 'three', end : 39 } ], name : 'myMacro', end : 41 } 
 		);
 	});
 
@@ -177,10 +177,10 @@ describe("HTML tag new parser tests", function() {
 			null
 		);
 		expect(parser.parseTag("<$mytag attrib3=<<myMacro one:two three:'four and five'>>>",0)).toEqual(
-			{ type : 'element', start : 0, attributes : { attrib3 : { type : 'macro', start : 7, name : 'attrib3', value : { type : 'macro-invocation', start : 16, parameters : [ { type : 'macro-parameter', start : 25, value : 'two', name : 'one', end : 33 }, { type : 'macro-parameter', start : 33, value : 'four and five', name : 'three', end : 55 } ], name : 'myMacro', end : 57 }, end : 57 } }, tag : '$mytag', end : 58 }
+			{ type : 'element', start : 0, attributes : { attrib3 : { type : 'macro', start : 7, name : 'attrib3', value : { type : 'macrocall', start : 16, params : [ { type : 'macro-parameter', start : 25, value : 'two', name : 'one', end : 33 }, { type : 'macro-parameter', start : 33, value : 'four and five', name : 'three', end : 55 } ], name : 'myMacro', end : 57 }, end : 57 } }, tag : '$mytag', end : 58 }
 		);
 		expect(parser.parseTag("<$mytag attrib1='something' attrib2=else thing attrib3=<<myMacro one:two three:'four and five'>>>",0)).toEqual(
-			{ type : 'element', start : 0, attributes : { attrib1 : { type : 'string', start : 7, name : 'attrib1', value : 'something', end : 27 }, attrib2 : { type : 'string', start : 27, name : 'attrib2', value : 'else', end : 40 }, thing : { type : 'string', start : 40, name : 'thing', value : 'true', end : 47 }, attrib3 : { type : 'macro', start : 47, name : 'attrib3', value : { type : 'macro-invocation', start : 55, parameters : [ { type : 'macro-parameter', start : 64, value : 'two', name : 'one', end : 72 }, { type : 'macro-parameter', start : 72, value : 'four and five', name : 'three', end : 94 } ], name : 'myMacro', end : 96 }, end : 96 } }, tag : '$mytag', end : 97 }
+			{ type : 'element', start : 0, attributes : { attrib1 : { type : 'string', start : 7, name : 'attrib1', value : 'something', end : 27 }, attrib2 : { type : 'string', start : 27, name : 'attrib2', value : 'else', end : 40 }, thing : { type : 'string', start : 40, name : 'thing', value : 'true', end : 47 }, attrib3 : { type : 'macro', start : 47, name : 'attrib3', value : { type : 'macrocall', start : 55, params : [ { type : 'macro-parameter', start : 64, value : 'two', name : 'one', end : 72 }, { type : 'macro-parameter', start : 72, value : 'four and five', name : 'three', end : 94 } ], name : 'myMacro', end : 96 }, end : 96 } }, tag : '$mytag', end : 97 }
 		);
 	});
 
@@ -196,86 +196,6 @@ describe("HTML tag new parser tests", function() {
 		);
 		expect(parser.findNextTag("<<some other stuff>> <mytag>",2)).toEqual(
 			{ type : 'element', start : 21, attributes : {  }, tag : 'mytag', end : 28 }
-		);
-	});
-
-});
-
-describe("HTML tag parser tests", function() {
-
-	// Create a wiki
-	var wiki = new $tw.Wiki();
-
-	// Define a parsing shortcut
-	var parse = function(text) {
-		return wiki.parseText("text/vnd.tiddlywiki",text).tree;
-	};
-
-	it("should parse unclosed tags", function() {
-		expect(parse("<br>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'br', isBlock : false, attributes : {  }, start : 0, end : 4 } ] } ]
-
-		);
-		expect(parse("</br>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'text', text : '</br>' } ] } ]
-
-		);
-		expect(parse("<div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : {  }, children : [  ], start : 0, end : 5 } ] } ]
-
-		);
-		expect(parse("<div/>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isSelfClosing : true, isBlock : false, attributes : {  }, start : 0, end : 6 } ] } ]
-
-		);
-		expect(parse("<div></div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : {  }, children : [ ], start : 0, end : 5 } ] } ]
-
-		);
-		expect(parse("<div>some text</div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : {  }, children : [ { type : 'text', text : 'some text' } ], start : 0, end : 5 } ] } ]
-
-		);
-		expect(parse("<div attribute>some text</div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : { attribute : { type : 'string', value : 'true', start : 4, end : 14, name: 'attribute' } }, children : [ { type : 'text', text : 'some text' } ], start : 0, end : 15 } ] } ]
-
-		);
-		expect(parse("<div attribute='value'>some text</div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : { attribute : { type : 'string', name: 'attribute', value : 'value', start: 4, end: 22 } }, children : [ { type : 'text', text : 'some text' } ], start: 0, end: 23 } ] } ]
-
-		);
-		expect(parse("<div attribute={{TiddlerTitle}}>some text</div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : { attribute : { type : 'indirect', name: 'attribute', textReference : 'TiddlerTitle', start : 4, end : 31 } }, children : [ { type : 'text', text : 'some text' } ], start : 0, end : 32 } ] } ]
-
-		);
-		expect(parse("<$reveal state='$:/temp/search' type='nomatch' text=''>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', start : 0, attributes : { state : { start : 8, name : 'state', type : 'string', value : '$:/temp/search', end : 31 }, type : { start : 31, name : 'type', type : 'string', value : 'nomatch', end : 46 }, text : { start : 46, name : 'text', type : 'string', value : '', end : 54 } }, tag : '$reveal', end : 55, children : [  ], isBlock : false } ] } ]
-
-		);
-		expect(parse("<div attribute={{TiddlerTitle!!field}}>some text</div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', tag : 'div', isBlock : false, attributes : { attribute : { type : 'indirect', name : 'attribute', textReference : 'TiddlerTitle!!field', start : 4, end : 38 } }, children : [ { type : 'text', text : 'some text' } ], start : 0, end : 39 } ] } ]
-
-		);
-		expect(parse("<div attribute={{TiddlerTitle!!field}}>\nsome text</div>")).toEqual(
-
-			[ { type : 'element', start : 0, attributes : { attribute : { start : 4, name : 'attribute', type : 'indirect', textReference : 'TiddlerTitle!!field', end : 38 } }, tag : 'div', end : 39, isBlock : true, children : [ { type : 'element', tag : 'p', children : [ { type : 'text', text : 'some text' } ] } ] } ]
-
-		);
-		expect(parse("<div><div attribute={{TiddlerTitle!!field}}>\nsome text</div></div>")).toEqual(
-
-			[ { type : 'element', tag : 'p', children : [ { type : 'element', start : 0, attributes : {  }, tag : 'div', end : 5, isBlock : false, children : [ { type : 'element', start : 5, attributes : { attribute : { start : 9, name : 'attribute', type : 'indirect', textReference : 'TiddlerTitle!!field', end : 43 } }, tag : 'div', end : 44, isBlock : true, children : [ { type : 'element', tag : 'p', children : [ { type : 'text', text : 'some text' } ] } ] } ] } ] } ]
-
 		);
 	});
 
