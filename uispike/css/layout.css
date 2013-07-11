@@ -3,8 +3,14 @@
     margin-bottom: 5px;
 }
 
-#header, #content, #sidebar  {
+#header, #content {
     border-bottom: solid 1px #ccc;
+}
+
+#sidebar {
+    padding-top: 5px;
+    padding-left: 10px;
+    border-left: solid 1px #ccc;
 }
 
 /* Page structure */
@@ -15,15 +21,17 @@
     margin: 20px auto;
 }
 #header {
-    height: 50px;
+    min-height: 50px;
 }
 #content {
+    padding-top: 5px;
     width: 600px;
     min-height: 400px;        
     float: left;
 }
 #sidebar {
     width: 300px;
+    min-height: 400px;        
     float: right;
 }
 #footer {
@@ -42,6 +50,7 @@
     }
     #sidebar {
         width: 30%;
+        min-height: 400px;        
     }    
 }
 
@@ -56,8 +65,11 @@
         float: none;
     }
     #sidebar {
+        min-height: 200px;        
         width: auto;
         float: none;
+        padding-left: 0px;
+        border-left: solid 0px;        
     }    
 }
 
