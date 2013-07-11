@@ -60,3 +60,18 @@ body {
 .navigation li a:active {
     background-color: #FF0000;
 }
+
+.event-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.event-item p {
+    padding: 0px;
+}
+
+.event-item:nth-child(odd) {
+    border-top: solid 1px #ccc;    
+    border-bottom: solid 1px #ccc;    
+}
+
