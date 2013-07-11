@@ -3,7 +3,7 @@
     margin-bottom: 5px;
 }
 
-#header, #content {
+#header, #content, #sidebar  {
     border-bottom: solid 1px #ccc;
 }
 
@@ -18,9 +18,13 @@
     height: 50px;
 }
 #content {
-    width: 960px;
+    width: 600px;
     min-height: 400px;        
     float: left;
+}
+#sidebar {
+    width: 300px;
+    float: right;
 }
 #footer {
     clear: both;
@@ -33,9 +37,12 @@
         width: 94%;
     }
     #content {
-        width: 100%;
+        width: 65%;
         min-height: 400px;        
     }
+    #sidebar {
+        width: 30%;
+    }    
 }
 
 /* for 700px or less */
@@ -45,6 +52,12 @@
     }
     #content {
         min-height: 200px;        
+        width: auto;
+        float: none;
+    }
+    #sidebar {
+        width: auto;
+        float: none;
     }    
 }
 
