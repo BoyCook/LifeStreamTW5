@@ -13,9 +13,25 @@
     <link rel="stylesheet" href="css/default.css" type="text/css">
     <link rel="stylesheet" href="css/elusive-webfont.css">
     <script type="text/javascript" src="js/default.js"></script>
+    <script type="text/javascript" src="js/tagcanvas.js"></script>
+    <!-- http://plugins.jquery.com/tagcanvas/ -->
+    <!-- http://www.goat1000.com/tagcanvas-weighted.php -->
+    <script type="text/javascript">
+        window.onload = function() {
+            doNavigate('home');
+            try {
+                TagCanvas.weight = true;
+                TagCanvas.weightMode = 'both'
+                TagCanvas.Start('cloudCanvas');
+            } catch(e) {
+                // something went wrong, hide the canvas container
+                document.getElementById('cloudContainer').style.display = 'none';
+            }
+      };
+    </script>    
 </head>
 
-<body onload="doNavigate('home')">
+<body>
     <div id="pagecontent">
         <div id="header">
             <ul class="navigation">
@@ -25,7 +41,7 @@
                 <li><a href="#linkedIn" onclick="doNavigate('linkedIn');"><i class="icon-linkedin"></i>LinkedIn</a></li>
                 <li><a href="#gitHub" onclick="doNavigate('gitHub');"><i class="icon-github"></i>GitHub</a></li>
                 <li><a href="#jenkins" onclick="doNavigate('jenkins');">Jenkins</a></li>
-                <li><a href="#flickr" onclick="doNavigate('flickr');">Pictures</a></li>
+                <li><a href="#flickr" onclick="doNavigate('flickr');"><i class="icon-flickr"></i>Pictures</a></li>
                 <!-- <li><a href="#instagram">Pictures</a></li>-->
             </ul>
         </div>
@@ -54,7 +70,19 @@
             </div>
         </div>
         <div id="sidebar">
-            <div>Social Media Cloud thing with cool icons</div>
+            <div id="cloudContainer">
+             <canvas width="300" height="300" id="cloudCanvas">
+              <p>Anything in here will be replaced on browsers that support the canvas element</p>
+              <ul>
+               <li><a href="#twitter" style="font-size: 50pt"><i class="icon-twitter"></i> Tweets</a></li>
+               <li><a href="#blog" style="font-size: 30pt"><i class="icon-wordpress"></i> Blog</a></li>
+               <li><a href="#linkedIn" style="font-size: 20pt"><i class="icon-linkedin"></i> LinkedIn</a></li>
+               <li><a href="#gitHub" style="font-size: 100pt"><i class="icon-github"></i> GitHub</a></li>
+               <li><a href="#jenkins" style="font-size: 30pt">Jenkins</a></li>
+               <li><a href="#flickr" style="font-size: 10pt"><i class="icon-twitter"></i> Pictures</a></li>
+              </ul>              
+             </canvas>
+            </div>
         </div>        
         <div id="footer">
             <p>Powered by <a href="https://github.com/BoyCook/CraigCook">LifeStream</a></p>
