@@ -82,12 +82,19 @@ body {
     text-decoration: none;
 }
 
-.event-item-head a {
+.simple-a {
     text-decoration: none;
     color: blue;
 }
 
-.event-item-head a:hover {
+.simple-a:hover {
     text-decoration: underline;
+}
+
+.welcome-image {
+    /*width: 30%;*/
+    float: left;
+    clear:left;
+    padding-right: 10px;
 }
 
