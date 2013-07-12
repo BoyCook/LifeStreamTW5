@@ -1,6 +1,7 @@
 body {
     /*font-family: Merriweather, Garamond, Georgia, serif*/
-    font-family: "freight-sans-pro",sans-serif
+    /*font-family: "freight-sans-pro",sans-serif*/
+    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif
 }
 
 .navigation {
@@ -78,5 +79,15 @@ body {
 .time-ago {
     display: inline;
     font-style: italic;
+    text-decoration: none;
+}
+
+.event-item-head a {
+    text-decoration: none;
+    color: blue;
+}
+
+.event-item-head a:hover {
+    text-decoration: underline;
 }
 
