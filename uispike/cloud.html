@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Craig Cook on the web</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="js/tagcanvas.js"></script>
+    <!-- http://plugins.jquery.com/tagcanvas/ -->
+    <!-- http://www.goat1000.com/tagcanvas-weighted.php -->
+    <script type="text/javascript">
+        window.onload = function() {
+            try {
+                TagCanvas.weight = true;
+                TagCanvas.weightMode = 'both'
+                TagCanvas.Start('cloudCanvas');
+            } catch(e) {
+                // something went wrong, hide the canvas container
+                document.getElementById('cloudContainer').style.display = 'none';
+            }
+      };
+    </script>    
+</head>
+
+<body>
+        <div id="sidebar">
+            <div id="cloudContainer">
+                <canvas width="300" height="300" id="cloudCanvas">
+                <p>Anything in here will be replaced on browsers that support the canvas element</p>
+                    <ul>
+                        <li><a href="#twitter" onclick="doNavigate('twitter');" style="font-size: 25pt">Tweets</a></li>
+                        <li><a href="#blog" onclick="doNavigate('blog');" style="font-size: 15pt">Blog</a></li>
+                        <li><a href="#linkedIn" onclick="doNavigate('linkedIn');" style="font-size: 10pt">LinkedIn</a></li>
+                        <li><a href="#gitHub" onclick="doNavigate('gitHub');" style="font-size: 50pt">GitHub</a></li>
+                        <li><a href="#jenkins" onclick="doNavigate('jenkins');" style="font-size: 15pt">Jenkins</a></li>
+                        <li><a href="#flickr" onclick="doNavigate('flickr');" style="font-size: 5pt">Pictures</a></li>
+                    </ul>              
+                </canvas>
+            </div>
+        </div>        
+    </div>
+</body>
+</html>
