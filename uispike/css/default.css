@@ -98,3 +98,11 @@ body {
     padding-right: 10px;
 }
 
+.blog-post {
+    /*max-height: 100px;*/
+}
+
+i {
+    color: #0088cc
+}
+
