@@ -6,7 +6,7 @@ nav, .content {
 aside {
     padding-top: 5px;
     padding-left: 10px;
-    border-left: solid 1px #ccc;
+    border-left: solid 1px #ccc;    
 }
 nav {
     overflow: auto;
@@ -62,7 +62,7 @@ footer {
         width: auto;
         float: none;
         padding-left: 0px;
-        border-left: solid 0px;        
+        border-left: none;
     }    
 }
 

@@ -8,11 +8,6 @@ nav, .content {
     margin-bottom: 5px;
     border-bottom: solid 1px #ccc;
 }
-aside {
-    padding-top: 5px;
-    padding-left: 10px;
-    border-left: solid 1px #ccc;
-}
 nav {
     overflow: auto;
     padding-bottom: 15px;
@@ -115,8 +110,15 @@ nav {
     padding-right: 10px;
 }
 
-.blog-post {
-    /*max-height: 100px;*/
+.event-item-content {
+    /*min-height: 100px;*/
+    line-height: 20px;
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 i {
