@@ -1,9 +1,25 @@
 body {
     /*font-family: Merriweather, Garamond, Georgia, serif*/
     /*font-family: "freight-sans-pro",sans-serif*/
-    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif
+    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+}   
+
+nav, .content {
+    margin-bottom: 5px;
+    border-bottom: solid 1px #ccc;
+}
+aside {
+    padding-top: 5px;
+    padding-left: 10px;
+    border-left: solid 1px #ccc;
+}
+nav {
+    overflow: auto;
+    padding-bottom: 15px;
+    text-align: center;
 }
 
+/* Navigation */
 .navigation {
 	margin-left:auto;
 	margin-right:auto;	
@@ -22,8 +38,7 @@ body {
 }
 
 .navigation > li {
-    float: left;
-    margin: 1px;
+    display: inline;
 }
 
 .hide {
@@ -35,6 +50,8 @@ body {
 }
 
 .navigation li a {
+    position: relative;
+    display: inline-block;
     text-decoration: none;
     font-size: 15px;
     line-height: 25px;
@@ -45,7 +62,7 @@ body {
     z-index: 5;
     padding-left: 15px;
     padding-right: 15px;
-    color: black;
+    color: #999;
     font-weight: 600;
     background-color: #fff;
 }

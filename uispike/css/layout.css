@@ -1,54 +1,50 @@
 /* For display ease */
-#header, #content {
+nav, .content {
     margin-bottom: 5px;
-}
-
-#header, #content {
     border-bottom: solid 1px #ccc;
 }
-
-#sidebar {
+aside {
     padding-top: 5px;
     padding-left: 10px;
     border-left: solid 1px #ccc;
 }
-
+nav {
+    overflow: auto;
+    padding-bottom: 15px;
+}
 /* Page structure */
 
-#pagecontent {
+body {
     padding: 5px;
     width: 960px;
     margin: 20px auto;
 }
-#header {
-    min-height: 50px;
-}
-#content {
+.content {
     padding-top: 5px;
     width: 600px;
     min-height: 400px;        
     float: left;
 }
-#sidebar {
+aside {
     width: 300px;
     min-height: 400px;        
     float: right;
 }
-#footer {
+footer {
     clear: both;
 }
 
 /* MEDIA QUERIES */
 /* for 980px or less */
 @media screen and (max-width: 980px) {
-    #pagecontent {
+    body {
         width: 94%;
     }
-    #content {
+    .content {
         width: 65%;
         min-height: 400px;        
     }
-    #sidebar {
+    aside {
         width: 30%;
         min-height: 400px;        
     }    
@@ -56,15 +52,12 @@
 
 /* for 700px or less */
 @media screen and (max-width: 700px) {
-    #header {
-        height: 80px;
-    }
-    #content {
+    .content {
         min-height: 200px;        
         width: auto;
         float: none;
     }
-    #sidebar {
+    aside {
         min-height: 200px;        
         width: auto;
         float: none;
@@ -75,10 +68,7 @@
 
 /* for 480px or less */
 @media screen and (max-width: 480px) {
-    #header {
-        height: 100px;
-    }
-    #content {
+    .content {
         min-height: 100px;        
     }
     h1 {

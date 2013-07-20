@@ -21,147 +21,164 @@
 </head>
 
 <body>
-    <div id="pagecontent">
-        <div id="header">
-            <ul class="navigation">
-                <li><a href="#home" onclick="doNavigate('home');">Home</a></li>
-                <li><a href="#twitter" onclick="doNavigate('twitter');"><i class="icon-twitter"></i> @BoyCook</a></li>
-                <li><a href="#blog" onclick="doNavigate('blog');"><i class="icon-wordpress"></i> Blog</a></li>
-                <li><a href="#linkedIn" onclick="doNavigate('linkedIn');"><i class="icon-linkedin"></i> LinkedIn</a></li>
-                <li><a href="#gitHub" onclick="doNavigate('gitHub');"><i class="icon-github"></i> GitHub</a></li>
-                <li><a href="#jenkins" onclick="doNavigate('jenkins');">Jenkins</a></li>
-                <li><a href="#flickr" onclick="doNavigate('flickr');"><i class="icon-flickr"></i> Pictures</a></li>
-                <!-- <li><a href="#instagram">Pictures</a></li>-->
-            </ul>
-        </div>
-        <div id="content">
-            <div id="home" class="module"> 
-                <div class="welcome">
-                    <div class="welcome-image">
-                        <img src="images/craig.jpg"/>
-                    </div>
-                    <div class="welcome-text">
-                        <p>I currently work for <a href="http://osmosoft.com" target="_blank">Osmosoft.com</a> as a web technologies advocate. I’ve been a full-time professional software developer in the UK since 2003. Like many others I’ve been playing with code and computers since I was about 12. I started out with playing with QBasic and then moved onto technologies/languages like Java, Ruby, C#, Erlang, HTML, SQL, JavaScript etc. I’m quite fond of node.js and web technologies so most of my focus is there these days.</p>                    
-                    </div>                    
+    <nav>
+        <h1>Craig Cook</h1>
+        <ul class="navigation">
+            <li><a onclick="doNavigate('home');">Home</a></li>
+            <li><a onclick="doNavigate('twitter');"><i class="icon-twitter"></i> @BoyCook</a></li>
+            <li><a onclick="doNavigate('blog');"><i class="icon-wordpress"></i> Blog</a></li>
+            <li><a onclick="doNavigate('linkedIn');"><i class="icon-linkedin"></i> LinkedIn</a></li>
+            <li><a onclick="doNavigate('gitHub');"><i class="icon-github"></i> GitHub</a></li>
+            <li><a onclick="doNavigate('jenkins');">Jenkins</a></li>
+            <li><a onclick="doNavigate('flickr');"><i class="icon-flickr"></i> Pictures</a></li>
+            <!-- <li><a href="#instagram">Pictures</a></li>-->
+        </ul>
+    </nav>
+    <section class="content">
+        <div id="home" class="module"> 
+            <div class="welcome">
+                <div class="welcome-image">
+                    <img src="images/craig.jpg"/>
                 </div>
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-twitter"></i> 
-                        <a href="http://twitter.com/BoyCook" target="_blank" title="View tweet" class="simple-a">new tweet</a>                       
-                        <p class="time-ago">5 minutes ago</p> 
-                    </div>                        
+                <article class="welcome-text">
+                    <p>I currently work for <a href="http://osmosoft.com" target="_blank">Osmosoft.com</a> as a web technologies advocate. I’ve been a full-time professional software developer in the UK since 2003. Like many others I’ve been playing with code and computers since I was about 12. I started out with playing with QBasic and then moved onto technologies/languages like Java, Ruby, C#, Erlang, HTML, SQL, JavaScript etc. I’m quite fond of node.js and web technologies so most of my focus is there these days.</p>                    
+                </article>                    
+            </div>
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-twitter"></i> 
+                    <a href="http://twitter.com/BoyCook" target="_blank" title="View tweet" class="simple-a">new tweet</a>                       
+                    <p class="time-ago">5 minutes ago</p> 
+                </div>                        
+                <article class="event-item-content">
                     Hey people - this is just some randon tweet
-                </div>
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-wordpress"></i>  
-                        <a href="http://boycook.wordpress.com" target="_blank" title="Read post" class="simple-a">new blog post</a>                   
-                        <p class="time-ago">7 minutes ago</p>                         
-                    </div>                        
-                    This is a short blog post
-                </div>   
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-wordpress"></i>  
-                        <a href="http://boycook.wordpress.com" target="_blank" title="Read post" class="simple-a">new blog post</a>                   
-                        <p class="time-ago">53 minutes ago</p>                         
-                    </div>                        
-                    <div class="blog-post">
-                        This is a really long blog post - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed porta erat, id tempus neque. Vestibulum imperdiet neque eget dictum auctor. Nullam felis neque, convallis in sagittis in, sollicitudin et diam. Sed turpis felis, adipiscing quis tempus in, sodales non nibh. Vestibulum sit amet ornare lectus. Cras mauris sem, placerat eleifend elementum sed, pharetra vitae turpis. Vivamus et enim auctor, tempus sem vel, dapibus lectus. Sed sit amet tellus non neque rhoncus dictum et a sem. In arcu sem, tristique at condimentum nec, semper mollis mauris. Sed at magna et justo adipiscing varius. Nulla facilisi. Vivamus vel velit sit amet augue vestibulum rutrum quis nec lectus.
+                </article>
+            </div>
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-wordpress"></i>  
+                    <a href="http://boycook.wordpress.com" target="_blank" title="Read post" class="simple-a">new blog post</a>                   
+                    <p class="time-ago">7 minutes ago</p>                         
+                </div>                        
+                <article class="event-item-content">
+                This is a short blog post
+                </article>
+            </div>   
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-wordpress"></i>  
+                    <a href="http://boycook.wordpress.com" target="_blank" title="Read post" class="simple-a">new blog post</a>                   
+                    <p class="time-ago">53 minutes ago</p>                         
+                </div>                        
+                <article class="event-item-content blog-post">
+                    This is a really long blog post - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed porta erat, id tempus neque. Vestibulum imperdiet neque eget dictum auctor. Nullam felis neque, convallis in sagittis in, sollicitudin et diam. Sed turpis felis, adipiscing quis tempus in, sodales non nibh. Vestibulum sit amet ornare lectus. Cras mauris sem, placerat eleifend elementum sed, pharetra vitae turpis. Vivamus et enim auctor, tempus sem vel, dapibus lectus. Sed sit amet tellus non neque rhoncus dictum et a sem. In arcu sem, tristique at condimentum nec, semper mollis mauris. Sed at magna et justo adipiscing varius. Nulla facilisi. Vivamus vel velit sit amet augue vestibulum rutrum quis nec lectus.
 
-                        Pellentesque pharetra et risus rhoncus tempor. Aliquam aliquam diam sit amet nibh molestie, pulvinar imperdiet lacus hendrerit. Duis non sem cursus, laoreet diam eu, aliquet leo. Aenean tincidunt et leo vel porta. In sed vulputate purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed nibh at augue pretium fermentum. Ut a hendrerit orci, non commodo sapien. Curabitur blandit nulla id consectetur ullamcorper.
-                    </div>
-                </div>                                
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-linkedin"></i> 
-                        <a href="http://www.linkedin.com/in/BoyCook" target="_blank" title="Read details" class="simple-a">new work details</a>
-                        <p class="time-ago">1 hour 20 minutes ago</p>                                                 
-                    </div>                                            
-                 This is some LinkedIn update
-                </div>                
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-github"></i>
-                        <a href="http://github.com/BoyCook" target="_blank" title="View repository" class="simple-a">new repository created</a>
-                        <p class="time-ago">3 hours 40 minutes ago</p>                           
-                    </div>                                            
-                 This is some GitHub repository name
-                </div>                
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-github"></i> 
-                        <a href="http://github.com/BoyCook" target="_blank" title="View commit" class="simple-a">new commit</a>
-                        <p class="time-ago">3 hours 55 minutes ago</p>                                                   
-                    </div>                                            
-                 This is some GitHub commit message
-                </div>                                
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-github"></i> 
-                        <a href="http://github.com/BoyCook" target="_blank" title="View issue" class="simple-a">new issue created</a>
-                        <p class="time-ago">4 hours 7 minutes ago</p>                                                   
-                    </div>                                            
-                 This is some GitHub issue
-                </div>                  
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-github"></i> 
-                        <a href="http://github.com/BoyCook" target="_blank" title="View commit" class="simple-a">new commit</a>
-                        <p class="time-ago">5 hours 7 minutes ago</p>                                                   
-                    </div>                                            
-                 This is some GitHub commit message
-                </div>                                                                                              
-                <div class="event-item">
-                    <div class="event-item-head">
-                        (TODO: invent icon) 
-                        <a href="http://craigcook.com/build" target="_blank" title="View build plan" class="simple-a">build failed</a>
-                        <p class="time-ago">1 day ago</p>                                                                           
-                    </div>                                                                
-                     Jenkins build plan name
-                </div>                
-                <div class="event-item">
-                    <div class="event-item-head">
-                        <i class="icon-flickr"></i> 
-                        <a href="http://www.flickr.com/BoyCook" target="_blank" title="View picture" class="simple-a">new picture added</a>
-                        <p class="time-ago">1 day 2 hours ago</p>                                                                           
-                    </div>                                                                                    
+                    Pellentesque pharetra et risus rhoncus tempor. Aliquam aliquam diam sit amet nibh molestie, pulvinar imperdiet lacus hendrerit. Duis non sem cursus, laoreet diam eu, aliquet leo. Aenean tincidunt et leo vel porta. In sed vulputate purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed nibh at augue pretium fermentum. Ut a hendrerit orci, non commodo sapien. Curabitur blandit nulla id consectetur ullamcorper.
+                </article>
+            </div>                                
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-linkedin"></i> 
+                    <a href="http://www.linkedin.com/in/BoyCook" target="_blank" title="Read details" class="simple-a">new work details</a>
+                    <p class="time-ago">1 hour 20 minutes ago</p>                                                 
+                </div>                                            
+                <article class="event-item-content">
+                    This is some LinkedIn update
+                </article>
+            </div>                
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-github"></i>
+                    <a href="http://github.com/BoyCook" target="_blank" title="View repository" class="simple-a">new repository created</a>
+                    <p class="time-ago">3 hours 40 minutes ago</p>                           
+                </div>     
+                <article class="event-item-content">                                       
+                    This is some GitHub repository name
+                </article>                        
+            </div>                
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-github"></i> 
+                    <a href="http://github.com/BoyCook" target="_blank" title="View commit" class="simple-a">new commit</a>
+                    <p class="time-ago">3 hours 55 minutes ago</p>                                                
+                </div>                                            
+                <article class="event-item-content">
+                    This is some GitHub commit message
+                </article>
+            </div>                                
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-github"></i> 
+                    <a href="http://github.com/BoyCook" target="_blank" title="View issue" class="simple-a">new issue created</a>
+                    <p class="time-ago">4 hours 7 minutes ago</p>                                                   
+                </div>                                            
+                <article class="event-item-content">
+                    This is some GitHub issue
+                </article>
+            </div>                  
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-github"></i> 
+                    <a href="http://github.com/BoyCook" target="_blank" title="View commit" class="simple-a">new commit</a>
+                    <p class="time-ago">5 hours 7 minutes ago</p>                                                   
+                </div>                                            
+                <article class="event-item-content">
+                    This is some GitHub commit message
+                </article>
+            </div>                                                                                              
+            <div class="event-item">
+                <div class="event-item-head">
+                    (TODO: invent icon) 
+                    <a href="http://craigcook.com/build" target="_blank" title="View build plan" class="simple-a">build failed</a>
+                    <p class="time-ago">1 day ago</p>                                                             
+                </div>                                                                
+                <article class="event-item-content">
+                    Jenkins build plan name
+                </article>
+            </div>                
+            <div class="event-item">
+                <div class="event-item-head">
+                    <i class="icon-flickr"></i> 
+                    <a href="http://www.flickr.com/BoyCook" target="_blank" title="View picture" class="simple-a">new picture added</a>
+                    <p class="time-ago">1 day 2 hours ago</p>                                                              
+                </div>                                                                                    
+                <article class="event-item-content">
                     This is some Picture post
-                </div>                
-            </div>
-            <div id="twitter" class="module">
-                <p>Tweets</p>
-            </div>
-            <div id="blog" class="module">
-                <p>Blogs</p>
-            </div>
-            <div id="linkedIn" class="module">
-                <p>Profile</p>
-            </div>
-            <div id="gitHub" class="module">
-                <p>GitHub</p>
-            </div>
-            <div id="jenkins" class="module">
-                <p>Jenkins</p>
-            </div>
-            <div id="flickr" class="module">
-                <p>Photos</p>
-            </div>
+                </article>
+            </div>                
         </div>
-        <div id="sidebar">
-            <div id="progressContiner">
-                <p><a href="#gitHub" onclick="doNavigate('gitHub');" class="simple-a">GitHub</a></p><progress value="40" max="100"></progress>  
-                <p><a href="#twitter" onclick="doNavigate('twitter');" class="simple-a">Tweets</a></p><progress value="25" max="100"></progress>  
-                <p><a href="#blog" onclick="doNavigate('blog');" class="simple-a">Blog Posts</a></p><progress value="15" max="100"></progress>  
-                <p><a href="#flickr" onclick="doNavigate('flickr');" class="simple-a">Pictures</a></p><progress value="12" max="100"></progress>                  
-                <p><a href="#jenkins" onclick="doNavigate('jenkins');" class="simple-a">Jenkins</a></p><progress value="10" max="100"></progress>                
-                <p><a href="#linkedIn" onclick="doNavigate('linkedIn');" class="simple-a">LinkedIn</a></p><progress value="8" max="100"></progress>       
-            </div>
-        </div>        
-        <div id="footer">
-            <p>Powered by <a href="https://github.com/BoyCook/CraigCook" target="_blank">LifeStream</a> and  <a href="http://five.tiddlywiki.com" target="_blank">TiddlyWiki5</a>
-            </p>
+        <div id="twitter" class="module">
+            <p>Tweets</p>
         </div>
-    </div>
+        <div id="blog" class="module">
+            <p>Blogs</p>
+        </div>
+        <div id="linkedIn" class="module">
+            <p>Profile</p>
+        </div>
+        <div id="gitHub" class="module">
+            <p>GitHub</p>
+        </div>
+        <div id="jenkins" class="module">
+            <p>Jenkins</p>
+        </div>
+        <div id="flickr" class="module">
+            <p>Photos</p>
+        </div>
+    </section>
+    <aside>
+        <div id="progressContiner">
+            <p><a href="#gitHub" onclick="doNavigate('gitHub');" class="simple-a">GitHub</a></p><progress value="40" max="100"></progress>  
+            <p><a href="#twitter" onclick="doNavigate('twitter');" class="simple-a">Tweets</a></p><progress value="25" max="100"></progress>  
+            <p><a href="#blog" onclick="doNavigate('blog');" class="simple-a">Blog Posts</a></p><progress value="15" max="100"></progress>  
+            <p><a href="#flickr" onclick="doNavigate('flickr');" class="simple-a">Pictures</a></p><progress value="12" max="100"></progress>                  
+            <p><a href="#jenkins" onclick="doNavigate('jenkins');" class="simple-a">Jenkins</a></p><progress value="10" max="100"></progress>                
+            <p><a href="#linkedIn" onclick="doNavigate('linkedIn');" class="simple-a">LinkedIn</a></p><progress value="8" max="100"></progress>       
+        </div>
+    </aside>        
+    <footer>
+        <p>Powered by <a href="https://github.com/BoyCook/CraigCook" target="_blank">LifeStream</a> and  <a href="http://five.tiddlywiki.com" target="_blank">TiddlyWiki5</a>
+        </p>
+    </footer>
 </body>
 </html>
