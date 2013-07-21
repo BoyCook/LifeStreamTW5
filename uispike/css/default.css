@@ -63,8 +63,8 @@ nav h1, .welcome-image {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     z-index: 5;
-/*    padding-left: 15px;
-    padding-right: 15px;*/
+    padding-left: 15px;
+    padding-right: 15px;
     color: #999;
     font-weight: 600;
     background-color: #fff;
