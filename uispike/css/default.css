@@ -112,10 +112,10 @@ nav h1 {
 .event-item-content {
     /*min-height: 100px;*/
     line-height: 20px;
-    max-height: 100px;
+    /*max-height: 100px;*/
     overflow: hidden;
     position: relative;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
