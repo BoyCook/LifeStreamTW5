@@ -8,8 +8,6 @@ body {
 
 nav {
     float: left;    
-    /*width: 300px;*/
-    /*overflow: auto;*/
 }
 
 nav ul {
@@ -21,18 +19,11 @@ nav li {
 }
 
 .content {
-    padding: 0px;
-    width: 600px;
-    min-height: 400px;        
     float: right;
-    border-left: solid 1px #ccc;
-}
-
-.welcome, .event-item {
-    padding: 30px;
 }
 
 footer {
+    float: left;
     clear: both;
 }
 
