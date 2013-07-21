@@ -20,13 +20,16 @@ nav h1 {
 
 .content {
     padding: 0px;
-    width: 600px;
-    min-height: 400px;        
+    min-height: 600px;        
     border-left: solid 1px #e3e3e3;
 }
 
 .welcome, .event-item {
     padding: 30px;
+}
+
+.welcome-text {
+    font-size: 14pt;
 }
 
 /* Navigation */

@@ -9,6 +9,7 @@ body {
 nav {
     position: fixed;
     float: left;    
+    /*width: 35%;*/
 }
 
 nav ul {
@@ -20,7 +21,9 @@ nav li {
 }
 
 .content {
+    width: 65%;
     float: right;
+    position: relative;
 }
 
 footer {
