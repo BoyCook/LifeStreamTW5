@@ -71,16 +71,15 @@ nav h1, .welcome-image {
 }
 
 .event-item {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    overflow-x: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .event-item p {
     padding: 0px;
 }
 
-.event-item:nth-child(odd) {
+.event-item:nth-child(even) {
     border-top: solid 1px #e3e3e3;    
     border-bottom: solid 1px #e3e3e3;    
 }
