@@ -1,35 +1,37 @@
-/* For display ease */
-nav, .content {
-    margin-bottom: 5px;
-    border-bottom: solid 1px #ccc;
-}
-aside {
-    padding-top: 5px;
-    padding-left: 10px;
-    border-left: solid 1px #ccc;    
-}
-nav {
-    overflow: auto;
-    padding-bottom: 15px;
-}
 /* Page structure */
 
 body {
-    padding: 5px;
+    padding: 0px;
+    margin: 0px;
     width: 960px;
-    margin: 20px auto;
 }
+
+nav {
+    float: left;    
+    /*width: 300px;*/
+    /*overflow: auto;*/
+}
+
+nav ul {
+    list-style: none;   
+}
+
+nav li {
+    display: list-item;
+}
+
 .content {
-    padding-top: 5px;
+    padding: 0px;
     width: 600px;
     min-height: 400px;        
-    float: left;
-}
-aside {
-    width: 300px;
-    min-height: 400px;        
     float: right;
+    border-left: solid 1px #ccc;
 }
+
+.welcome, .event-item {
+    padding: 30px;
+}
+
 footer {
     clear: both;
 }
@@ -44,26 +46,23 @@ footer {
         width: 65%;
         min-height: 400px;        
     }
-    aside {
-        width: 30%;
-        min-height: 400px;        
-    }    
 }
 
 /* for 700px or less */
 @media screen and (max-width: 700px) {
+    nav {
+        float: none;    
+        text-align: center;        
+    }
+    nav li {
+        display: inline;
+    }       
     .content {
+        float: none;
         min-height: 200px;        
         width: auto;
         float: none;
     }
-    aside {
-        min-height: 200px;        
-        width: auto;
-        float: none;
-        padding-left: 0px;
-        border-left: none;
-    }    
 }
 
 /* for 480px or less */

@@ -24,22 +24,21 @@
     <nav>
         <h1>Craig Cook</h1>
         <ul class="navigation">
-            <li><a onclick="doNavigate('home');"><i class="icon-home"></i> Home</a></li>
-            <li><a onclick="doNavigate('twitter');"><i class="icon-twitter"></i> @BoyCook</a></li>
-            <li><a onclick="doNavigate('blog');"><i class="icon-wordpress"></i> Blog</a></li>
-            <li><a onclick="doNavigate('linkedIn');"><i class="icon-linkedin"></i> LinkedIn</a></li>
-            <li><a onclick="doNavigate('gitHub');"><i class="icon-github"></i> GitHub</a></li>
-            <li><a onclick="doNavigate('jenkins');"><i class="icon-cog"></i> Jenkins</a></li>
-            <li><a onclick="doNavigate('flickr');"><i class="icon-flickr"></i> Pictures</a></li>
-            <!-- <li><a href="#instagram">Pictures</a></li>-->
+            <li><a onclick="doNavigate('home');" class="nav-home"><i class="icon-home"></i> Home</a></li>
+            <li><a onclick="doNavigate('twitter');" class="nav-twitter"><i class="icon-twitter"></i> @BoyCook</a></li>
+            <li><a onclick="doNavigate('blog');" class="nav-blog"><i class="icon-wordpress"></i> Blog</a></li>
+            <li><a onclick="doNavigate('linkedIn');" class="nav-linked"><i class="icon-linkedin"></i> LinkedIn</a></li>
+            <li><a onclick="doNavigate('gitHub');" class="nav-github"><i class="icon-github"></i> GitHub</a></li>
+            <li><a onclick="doNavigate('jenkins');" class="nav-jenkins"><i class="icon-cog"></i> Jenkins</a></li>
+            <li><a onclick="doNavigate('flickr');" class="nav-flickr"><i class="icon-flickr"></i> Pictures</a></li>
         </ul>
     </nav>
     <section class="content">
         <div id="home" class="module"> 
             <div class="welcome">
-                <div class="welcome-image">
+<!--                 <div class="welcome-image">
                     <img src="images/craig.jpg"/>
-                </div>
+                </div> -->
                 <article class="welcome-text">
                     <p>I currently work for <a href="http://osmosoft.com" target="_blank">Osmosoft.com</a> as a web technologies advocate. I’ve been a full-time professional software developer in the UK since 2003. Like many others I’ve been playing with code and computers since I was about 12. I started out with playing with QBasic and then moved onto technologies/languages like Java, Ruby, C#, Erlang, HTML, SQL, JavaScript etc. I’m quite fond of node.js and web technologies so most of my focus is there these days. Here's what I've been up to recently, click on the links to read more:</p>                    
                 </article>                    
@@ -166,14 +165,6 @@
             <p>Photos</p>
         </div>
     </section>
-    <aside>
-        <p><a href="#gitHub" onclick="doNavigate('gitHub');" class="simple-a">GitHub</a></p><progress value="40" max="100"></progress>  
-        <p><a href="#twitter" onclick="doNavigate('twitter');" class="simple-a">Tweets</a></p><progress value="25" max="100"></progress>  
-        <p><a href="#blog" onclick="doNavigate('blog');" class="simple-a">Blog Posts</a></p><progress value="15" max="100"></progress>  
-        <p><a href="#flickr" onclick="doNavigate('flickr');" class="simple-a">Pictures</a></p><progress value="12" max="100"></progress>                  
-        <p><a href="#jenkins" onclick="doNavigate('jenkins');" class="simple-a">Jenkins</a></p><progress value="10" max="100"></progress>                
-        <p><a href="#linkedIn" onclick="doNavigate('linkedIn');" class="simple-a">LinkedIn</a></p><progress value="8" max="100"></progress>       
-    </aside>        
     <footer>
         <p>Powered by <a href="https://github.com/BoyCook/CraigCook" target="_blank">LifeStream</a> and  <a href="http://five.tiddlywiki.com" target="_blank">TiddlyWiki5</a>
         </p>
