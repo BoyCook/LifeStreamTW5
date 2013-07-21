@@ -19,7 +19,6 @@ nav h1, .welcome-image {
 
 .content {
     padding: 0px;
-    min-height: 600px;        
     border-left: solid 1px #e3e3e3;
 }
 
@@ -78,6 +77,7 @@ nav h1, .welcome-image {
 .event-item {
     padding-top: 5px;
     padding-bottom: 5px;
+    overflow-x: hidden;
 }
 
 .event-item p {

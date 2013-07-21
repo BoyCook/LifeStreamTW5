@@ -3,13 +3,13 @@
 body {
     padding: 0px;
     margin: 0px;
-    width: 960px;
+    width: 100%;
 }
 
 nav {
     position: fixed;
     float: left;    
-    /*width: 35%;*/
+    /*width: 26%;*/
 }
 
 nav ul {
@@ -21,7 +21,9 @@ nav li {
 }
 
 .content {
-    width: 65%;
+    min-height: 900px;
+    margin-left: 20%;
+    width: auto;
     float: right;
     position: relative;
 }
@@ -34,13 +36,7 @@ footer {
 /* MEDIA QUERIES */
 /* for 980px or less */
 @media screen and (max-width: 980px) {
-    body {
-        width: 94%;
-    }
-    .content {
-        width: 65%;
-        min-height: 400px;        
-    }
+    /* Do nothing - it fits for now */
 }
 
 /* for 700px or less */
@@ -54,8 +50,8 @@ footer {
         display: inline;
     }       
     .content {
+        margin-left: 0%;        
         float: none;
-        min-height: 200px;        
         width: auto;
         float: none;
     }
@@ -66,9 +62,6 @@ footer {
 
 /* for 480px or less */
 @media screen and (max-width: 480px) {
-    .content {
-        min-height: 100px;        
-    }
     h1 {
         font-size: 24px;
     }
