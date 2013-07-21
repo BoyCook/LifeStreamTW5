@@ -59,6 +59,9 @@ footer {
         width: auto;
         float: none;
     }
+    .welcome-image {
+        display: none;
+    }
 }
 
 /* for 480px or less */

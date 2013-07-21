@@ -11,11 +11,10 @@ body {
 
 nav {
     overflow: auto;
-    padding-bottom: 15px;
 }
 
-nav h1 {
-    padding-left: 50px;
+nav h1, .welcome-image {
+    padding-left: 45px;
 }
 
 .content {
@@ -64,8 +63,8 @@ nav h1 {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     z-index: 5;
-    padding-left: 15px;
-    padding-right: 15px;
+/*    padding-left: 15px;
+    padding-right: 15px;*/
     color: #999;
     font-weight: 600;
     background-color: #fff;
@@ -103,13 +102,6 @@ nav h1 {
 
 .simple-a:hover {
     text-decoration: underline;
-}
-
-.welcome-image {
-    /*width: 30%;*/
-    float: left;
-    clear:left;
-    padding-right: 10px;
 }
 
 .event-item-content {
