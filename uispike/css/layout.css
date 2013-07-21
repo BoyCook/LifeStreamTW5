@@ -9,7 +9,6 @@ body {
 nav {
     position: fixed;
     float: left;    
-    /*width: 26%;*/
 }
 
 nav ul {
@@ -22,10 +21,13 @@ nav li {
 
 .content {
     min-height: 900px;
-    margin-left: 20%;
-    width: auto;
+    margin-left: 22%;
     float: right;
     position: relative;
+}
+
+.welcome-text {
+    font-size: 14pt;
 }
 
 footer {
@@ -62,7 +64,11 @@ footer {
 
 /* for 480px or less */
 @media screen and (max-width: 480px) {
+    /* TODO shrink text a bit */
     h1 {
-        font-size: 24px;
+        font-size: 18px;
     }
+    .welcome-text {
+        font-size: 12pt;
+    }    
 }
