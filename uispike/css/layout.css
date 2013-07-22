@@ -22,7 +22,6 @@ nav li {
 .content {
     min-height: 900px;
     margin-left: 20%;
-    float: right;
     position: relative;
 }
 
@@ -41,7 +40,6 @@ footer {
     .content {
         min-height: 900px;
         margin-left: 25%;
-        float: right;
         position: relative;
     }    
 }
@@ -50,7 +48,6 @@ footer {
 @media screen and (max-width: 768px) {
     nav {
         position: relative;
-        float: none;    
         text-align: center;        
     }
     nav li {
