@@ -21,7 +21,7 @@ nav li {
 
 .content {
     min-height: 900px;
-    margin-left: 22%;
+    margin-left: 20%;
     float: right;
     position: relative;
 }
@@ -38,10 +38,15 @@ footer {
 /* MEDIA QUERIES */
 /* for 980px or less */
 @media screen and (max-width: 980px) {
-    /* Do nothing - it fits for now */
+    .content {
+        min-height: 900px;
+        margin-left: 25%;
+        float: right;
+        position: relative;
+    }    
 }
 
-/* for 700px or less */
+/* for 768px (iPad mini) or less */
 @media screen and (max-width: 768px) {
     nav {
         position: relative;
@@ -62,9 +67,8 @@ footer {
     }
 }
 
-/* for 480px or less */
-@media screen and (max-width: 480px) {
-    /* TODO shrink text a bit */
+/* for 568px (iPhone) or less */
+@media screen and (max-width: 568px) {
     h1 {
         font-size: 18px;
     }
