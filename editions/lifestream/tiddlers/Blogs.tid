@@ -1,4 +1,4 @@
 title: Blogs
 tags: blogs
 
-{{{ [tag[blog]sort-date[##date]] -[[Blogs]] ||$:/templates/BlogTemplate}}}
+{{{ [tag[blog]sort[##date]] -[[Blogs]] ||$:/templates/BlogTemplate}}}

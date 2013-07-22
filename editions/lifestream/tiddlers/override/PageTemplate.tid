@@ -1,4 +1,4 @@
-title: $:/templates/PageTemplate
+title: $:/core/ui/PageTemplate
 
 <!-- The navigator catches navigation events and updates the story and history tiddlers -->
 <$navigator story="$:/StoryList" history="$:/HistoryList">
@@ -8,19 +8,21 @@ title: $:/templates/PageTemplate
 <!-- The sidebar header -->
 <header class="sidebar-header">
 
-{{SiteTitle}}.title <br><small>{{SiteSubtitle}}</small>
+<div class="title">{{SiteTitle}}</div><div class="tw-subtitle">{{SiteSubtitle}}</div>
 
+<div class="tw-page-controls">
+<$button message="tw-new-tiddler" class="btn-invisible">{{$:/core/images/new-button}}</$button><$link to="$:/ControlPanel">{{$:/core/images/options-button}}</$link><$button message="tw-save-wiki" class="btn-invisible">{{$:/core/images/save-button}}</$button>
+</div>
+
+{{$:/core/ui/SideBar}}
 {{craig.png}width:180px;}
-
-{{$:/templates/SideBar}}
-
 </header>
 
 <!-- The story river -->
 <section class="story-river">
 
 <!-- The main story -->
-<$list filter="[list[$:/StoryList]]" history="$:/HistoryList" template="$:/templates/ViewTemplate" editTemplate="$:/templates/EditTemplate" listview="classic" itemClass="tw-tiddler-frame"/>
+<$list filter="[list[$:/StoryList]]" history="$:/HistoryList" template="$:/core/ui/ViewTemplate" editTemplate="$:/core/ui/EditTemplate" listview="classic" itemClass="tw-tiddler-frame"/>
 
 <!-- End of story river -->
 </section>
@@ -28,4 +30,3 @@ title: $:/templates/PageTemplate
 </$import>
 
 </$navigator>
-

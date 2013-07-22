@@ -1,4 +1,4 @@
 title: GitHubGists
 tags: GitHubGists
 
-{{{ [tag[GitHubGist]sort-date[##updated_at]] -[[GitHubGists]] ||$:/templates/GitHubGistTemplate}}}
+{{{ [tag[GitHubGist]sort[##updated_at]] -[[GitHubGists]] ||$:/templates/GitHubGistTemplate}}}

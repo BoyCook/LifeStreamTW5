@@ -1,7 +1,7 @@
 /*\
 title: $:/tiddlywiki/plugins/filesystemsyncer.js
 type: application/javascript
-module-type: server-syncer
+module-type: server-syncer-off
 
 Filesystem server syncer. This acts when the (server) wiki state changes i.e. add/delete tiddler
 
